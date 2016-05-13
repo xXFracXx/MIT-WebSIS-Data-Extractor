@@ -92,4 +92,118 @@ function get_attendance_data($html) {
     return $a_data;
 }
 
+function get_IA1_data($html) {
+    $row_count = 0;
+    $col = 0;
+    foreach($html->find('div.screenlet') as $main_table_div) {
+        foreach($main_table_div->find('div.screenlet-title-bar ul li.h3') as $table_title) {
+            $table_title_plain_text = $table_title->plaintext;
+            if (strpos($table_title_plain_text, '(IA) - [1]') !== false) {
+                foreach($main_table_div->find('table[id=ListAssessmentScores_table]') as $table) {
+                    foreach($table->find('tr') as $row) {
+                        $IA1_data[$row_count]['id'] = $row_count;
+                        foreach($row->find('td') as $cell) {
+                            $cell_text = $cell->plaintext;
+                            switch ($col) {
+                                case 0:
+                                    $IA1_data[$row_count]['course_code'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 1:
+                                    $IA1_data[$row_count]['course'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 2:
+                                    $IA1_data[$row_count]['marks'] = $cell_text;
+                                    $col++;
+                                    break;
+                            }
+                        }
+                        $col = 0;
+                        $row_count++;
+                    }
+                }
+            }
+        }
+    }
+
+    return $IA1_data;
+}
+
+function get_IA2_data($html) {
+    $row_count = 0;
+    $col = 0;
+    foreach($html->find('div.screenlet') as $main_table_div) {
+        foreach($main_table_div->find('div.screenlet-title-bar ul li.h3') as $table_title) {
+            $table_title_plain_text = $table_title->plaintext;
+            if (strpos($table_title_plain_text, '(IA) - [2]') !== false) {
+                foreach($main_table_div->find('table[id=ListAssessmentScores_table]') as $table) {
+                    foreach($table->find('tr') as $row) {
+                        $IA2_data[$row_count]['id'] = $row_count;
+                        foreach($row->find('td') as $cell) {
+                            $cell_text = $cell->plaintext;
+                            switch ($col) {
+                                case 0:
+                                    $IA2_data[$row_count]['course_code'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 1:
+                                    $IA2_data[$row_count]['course'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 2:
+                                    $IA2_data[$row_count]['marks'] = $cell_text;
+                                    $col++;
+                                    break;
+                            }
+                        }
+                        $col = 0;
+                        $row_count++;
+                    }
+                }
+            }
+        }
+    }
+
+    return $IA2_data;
+}
+
+function get_IA3_data($html) {
+    $row_count = 0;
+    $col = 0;
+    foreach($html->find('div.screenlet') as $main_table_div) {
+        foreach($main_table_div->find('div.screenlet-title-bar ul li.h3') as $table_title) {
+            $table_title_plain_text = $table_title->plaintext;
+            if (strpos($table_title_plain_text, '(IA) - [3]') !== false) {
+                foreach($main_table_div->find('table[id=ListAssessmentScores_table]') as $table) {
+                    foreach($table->find('tr') as $row) {
+                        $IA3_data[$row_count]['id'] = $row_count;
+                        foreach($row->find('td') as $cell) {
+                            $cell_text = $cell->plaintext;
+                            switch ($col) {
+                                case 0:
+                                    $IA3_data[$row_count]['course_code'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 1:
+                                    $IA3_data[$row_count]['course'] = $cell_text;
+                                    $col++;
+                                    break;
+                                case 2:
+                                    $IA3_data[$row_count]['marks'] = $cell_text;
+                                    $col++;
+                                    break;
+                            }
+                        }
+                        $col = 0;
+                        $row_count++;
+                    }
+                }
+            }
+        }
+    }
+
+    return $IA3_data;
+}
+
 ?>
