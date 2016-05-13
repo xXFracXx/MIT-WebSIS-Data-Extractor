@@ -35,6 +35,7 @@ function get_course_data($html){
                         break;
                     case 6:
                         $c_data[$row_count]['exam_only'] = $cell_text;
+                        $col++;
                         break;
                 }
             }
@@ -80,7 +81,9 @@ function get_attendance_data($html) {
                         $col++;
                         break;
                     case 6:
-                        $a_data[$row_count]['updated'] = $cell_text;
+                        $temp_cell_text = str_replace('/', '-', $cell_text);
+                        $a_data[$row_count]['updated'] = $temp_cell_text;
+                        $col++;
                         break;
                 }
             }

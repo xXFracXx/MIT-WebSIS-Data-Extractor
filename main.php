@@ -36,5 +36,4 @@ echo json_encode($IA3_data);
 //$temp_c_data = str_replace('$nbsp;', '', $c_data);
 //json = json_encode($c_data, JSON_PRETTY_PRINT);
 //printf('<pre>%s</pre>', $json)
-
 ?>
