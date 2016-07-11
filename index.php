@@ -3,7 +3,6 @@ require('lib.php');
 require('extract_data.php');
 
 $base_url = getCurrentUri();
-$routes = array();
 $routes = explode('/', $base_url);
 // foreach($routes as $route) {
 //     if(trim($route) != '')
