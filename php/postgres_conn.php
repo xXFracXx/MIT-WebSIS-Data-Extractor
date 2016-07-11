@@ -8,7 +8,6 @@ function pg_connection_string_from_database_url() {
   $db_temp = parse_url($url, PHP_URL_PATH);
   $db = ltrim($db_temp, '/');
   $conn_url = "host=".$host." port=".$port." user=".$user." password=".$pass." dbname=".$db;
-  echo $conn_url;
   return $conn_url;
 }
 
@@ -16,6 +15,8 @@ $conn = pg_connection_string_from_database_url();
 $pg_conn = pg_connect($conn);
 
 function test_pg_conn() {
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info");
     print $result;
     while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
