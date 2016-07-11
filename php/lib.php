@@ -58,9 +58,15 @@ function checkLogin($data_html) {
     return FALSE;
 }
 
-function dispjSON($jdata) {
+function dispData($jdata, $id, $col) {
     $json = json_encode($jdata, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        pg_query($pg_conn, "UPDATE student_info SET $col = '$jdata' WHERE roll_no = '$id' ");
+    }
 }
 
 // /*
