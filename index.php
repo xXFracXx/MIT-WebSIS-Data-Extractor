@@ -11,8 +11,8 @@ foreach($routes as $route) {
 }
 //Now, $routes will contain all the routes. $routes[0] will correspond to first route. For e.g. in above example $routes[0] is search, $routes[1] is book and $routes[2] is fitzgerald
 
-$student_id = $routes[0];
-$student_dob = $routes[1];
+$student_id = "140905025";
+$student_dob = "1996-10-06";
 
 $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
