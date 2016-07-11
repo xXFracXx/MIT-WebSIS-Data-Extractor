@@ -51,6 +51,10 @@ function post_data($site,$data){
     unset($datapost);
 }
 
+/*
+The following function will strip the script name from URL i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
+*/
+
 function getCurrentUri()
 {
     $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
