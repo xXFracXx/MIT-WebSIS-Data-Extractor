@@ -13,6 +13,7 @@ foreach($routes as $route) {
 
 if($routes[1] == "postgresTest") {
     test_pg_conn();
+    exit();
 }
 
 $student_id = $routes[1];
@@ -32,22 +33,27 @@ $student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCT
 $data_page = grab_page($student_latest_enrollment); //echo $page;
 $data_html = str_get_html($data_page);
 
-if($routes[3] == "marks") {
-    if($routes[4] == "IA1") {
-        $data = get_IA1_data($data_html);
+if(checkLogin($data_html) == FALSE) {
+    print("Invalid Credentials");
+    exit();
+} else {
+    if($routes[3] == "marks") {
+        if($routes[4] == "IA1") {
+            $data = get_IA1_data($data_html);
+            dispjSON($data);
+        } else if($routes[4] == "IA2") {
+            $data = get_IA2_data($data_html);
+            dispjSON($data);
+        } else if($routes[4] == "IA3") {
+            $data = get_IA3_data($data_html);
+            dispjSON($data);
+        }
+    } else if($routes[3] == "attendance") {
+        $data = get_attendance_data($data_html);
         dispjSON($data);
-    } else if($routes[4] == "IA2") {
-        $data = get_IA2_data($data_html);
-        dispjSON($data);
-    } else if($routes[4] == "IA3") {
-        $data = get_IA3_data($data_html);
+    } else if($routes[3] == "course") {
+        $data = get_course_data($data_html);
         dispjSON($data);
     }
-} else if($routes[3] == "attendance") {
-    $data = get_attendance_data($data_html);
-    dispjSON($data);
-} else if($routes[3] == "course") {
-    $data = get_course_data($data_html);
-    dispjSON($data);
 }
 ?>

@@ -51,6 +51,13 @@ function post_data($site,$data){
     unset($datapost);
 }
 
+function checkLogin($data_html) {
+    if($data_html->find('table[id=LatestEnrollment_table]')) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 function dispjSON($jdata) {
     $json = json_encode($jdata, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
