@@ -26,23 +26,30 @@ $student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCT
 $data_page = grab_page($student_latest_enrollment); //echo $page;
 $data_html = str_get_html($data_page);
 
-if($routes[3] == "marks") {
-    if($routes[4] == "IA1") {
+if($routes[2] == "marks") {
+    if($routes[3] == "IA1") {
         $data = get_IA1_data($data_html);
-    } else if($routes[4] == "IA2") {
+    } else if($routes[3] == "IA2") {
         $data = get_IA2_data($data_html);
-    } else if($routes[4] == "IA3") {
+    } else if($routes[3] == "IA3") {
         $data = get_IA3_data($data_html);
     }
-} else if($routes[3] == "attendance") {
+} else if($routes[2] == "attendance") {
     $data = get_attendance_data($data_html);
-} else if($routes[3] == "course") {
+} else if($routes[2] == "course") {
     $data = get_course_data($data_html);
 }
 
 echo $base_url;
 echo nl2br("\n");
-echo $routes;
+echo $routes[0];
+echo nl2br("\n");
+echo $routes[1];
+echo nl2br("\n");
+echo $routes[2];
+echo nl2br("\n");
+echo $routes[3];
+echo nl2br("\n\n");
 
 $json = json_encode($data, JSON_PRETTY_PRINT);
 printf('<pre>%s</pre>', $json)
