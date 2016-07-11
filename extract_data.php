@@ -7,7 +7,8 @@ function get_course_data($html){
         foreach($table->find('tr') as $row) {
             $c_data[$row_count]['id'] = $row_count;
             foreach($row->find('td') as $cell) {
-                $cell_text = $cell->plaintext;
+                $cell_text_temp = $cell->plaintext;
+                $cell_text = trim($cell_text_temp);
                 switch ($col) {
                     case 0:
                         $c_data[$row_count]['course_code'] = $cell_text;
@@ -54,7 +55,8 @@ function get_attendance_data($html) {
         foreach($table->find('tr') as $row) {
             $a_data[$row_count]['id'] = $row_count;
             foreach($row->find('td') as $cell) {
-                $cell_text = $cell->plaintext;
+                $cell_text_temp = $cell->plaintext;
+                $cell_text = trim($cell_text_temp);
                 switch ($col) {
                     case 0:
                         $a_data[$row_count]['course_code'] = $cell_text;
@@ -106,7 +108,8 @@ function get_IA1_data($html) {
                     foreach($table->find('tr') as $row) {
                         $IA1_data[$row_count]['id'] = $row_count;
                         foreach($row->find('td') as $cell) {
-                            $cell_text = $cell->plaintext;
+                            $cell_text_temp = $cell->plaintext;
+                            $cell_text = trim($cell_text_temp);
                             switch ($col) {
                                 case 0:
                                     $IA1_data[$row_count]['course_code'] = $cell_text;
@@ -144,7 +147,8 @@ function get_IA2_data($html) {
                     foreach($table->find('tr') as $row) {
                         $IA2_data[$row_count]['id'] = $row_count;
                         foreach($row->find('td') as $cell) {
-                            $cell_text = $cell->plaintext;
+                            $cell_text_temp = $cell->plaintext;
+                            $cell_text = trim($cell_text_temp);
                             switch ($col) {
                                 case 0:
                                     $IA2_data[$row_count]['course_code'] = $cell_text;
@@ -182,7 +186,8 @@ function get_IA3_data($html) {
                     foreach($table->find('tr') as $row) {
                         $IA3_data[$row_count]['id'] = $row_count;
                         foreach($row->find('td') as $cell) {
-                            $cell_text = $cell->plaintext;
+                            $cell_text_temp = $cell->plaintext;
+                            $cell_text = trim($cell_text_temp);
                             switch ($col) {
                                 case 0:
                                     $IA3_data[$row_count]['course_code'] = $cell_text;
