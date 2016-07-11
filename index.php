@@ -18,6 +18,8 @@ if($routes[1] == "postgresTest") {
 $student_id = $routes[1];
 $student_dob = $routes[2];
 
+addToDB($student_id,$student_dob);
+
 $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
 $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
