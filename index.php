@@ -11,8 +11,8 @@ foreach($routes as $route) {
 }
 //Now, $routes will contain all the routes. $routes[0] will correspond to first route. For e.g. in above example $routes[0] is search, $routes[1] is book and $routes[2] is fitzgerald
 
-$student_id = "140905025";
-$student_dob = "1996-10-06";
+$student_id = (string)$routes[0];
+$student_dob = (string)$routes[1];
 
 $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
@@ -41,9 +41,6 @@ if($routes[2] == "marks") {
 }
 
 echo $base_url;
-echo $data_page;
-
-$data = get_course_data($data_html);
 
 $json = json_encode($data, JSON_PRETTY_PRINT);
 printf('<pre>%s</pre>', $json)
