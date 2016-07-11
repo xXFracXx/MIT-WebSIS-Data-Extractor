@@ -79,6 +79,8 @@ function extractAllDataToDB($data_html, $id) {
     $data5 = get_IA3_data($data_html);
     $json = json_encode($data5, JSON_PRETTY_PRINT);
     addDataToDB($json, $id, "marks_ia3");
+
+    print "All data transfered to Database";
 }
 
 // /*

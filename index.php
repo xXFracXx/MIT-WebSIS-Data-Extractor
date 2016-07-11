@@ -37,7 +37,7 @@ $data_page = grab_page($student_latest_enrollment); //echo $page;
 $data_html = str_get_html($data_page);
 
 if(checkLogin($data_html) == FALSE) {
-    print("Invalid Credentials");
+    print "Invalid Credentials";
     exit();
 } else {
     addStudentInfoToDB($student_id,$student_dob);
