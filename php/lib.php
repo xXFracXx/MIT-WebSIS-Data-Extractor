@@ -1,5 +1,4 @@
 <?php
-
 function login($url,$data){
     $fp = fopen("cookie.txt", "w");
     fclose($fp);
@@ -64,7 +63,7 @@ function dispData($jdata, $id, $col) {
     addDataToDB($json, $id, $col);
 }
 
-function extractAllDataToDB($data_html, $student_id) {
+function extractAllDataToDB($data_html, $id) {
     $data1 = get_attendance_data($data_html);
     $json = json_encode($data1, JSON_PRETTY_PRINT);
     addDataToDB($json, $id, "attendance");

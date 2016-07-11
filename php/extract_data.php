@@ -1,5 +1,4 @@
 <?php
-
 function get_course_data($html){
     $row_count = 0;
     $col = 0;
