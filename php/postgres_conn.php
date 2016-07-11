@@ -40,7 +40,7 @@ function addStudentInfoToDB($id, $dob) {
     }
 }
 
-function addDataToDB($jdata, $id, $col) {
+function addDataToDB($json, $id, $col) {
     $ts_col = $col."_ts";
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
