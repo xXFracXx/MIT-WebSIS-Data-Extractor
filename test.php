@@ -20,4 +20,5 @@ if (!pg_num_rows($result)) {
 print "\n";
 
 echo $_ENV["DATABASE_URL"];
+echo "hello world";
 ?>
