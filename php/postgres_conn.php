@@ -12,12 +12,12 @@ function pg_connection_string_from_database_url() {
   return $conn_url;
 }
 
+$conn = pg_connection_string_from_database_url();
+$pg_conn = pg_connect($conn);
+
 if(pg_connect($conn) == 'FALSE') {
     echo "fail";
 }
-
-$conn = pg_connection_string_from_database_url();
-$pg_conn = pg_connect($conn);
 
 function test_pg_conn() {
     $result = pg_query($pg_conn, "SELECT * FROM student_info");
