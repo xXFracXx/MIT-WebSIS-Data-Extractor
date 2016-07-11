@@ -15,6 +15,10 @@ function pg_connection_string_from_database_url() {
 $conn = pg_connection_string_from_database_url();
 $pg_conn = pg_connect($conn);
 
+if (!$pg_conn) {
+  echo "An error occurred.\n";
+}
+
 function test_pg_conn() {
     $result = pg_query($pg_conn, "SELECT * FROM student_info");
     print "<pre>\n";
