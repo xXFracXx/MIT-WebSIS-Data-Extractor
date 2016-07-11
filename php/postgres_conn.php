@@ -1,7 +1,11 @@
 <?php
 function pg_connection_string_from_database_url() {
   extract(parse_url($_ENV["DATABASE_URL"]));
-  return "user=$user password=$pass host=$host dbname=d61ridufh8cuu1";// . substr($path, 1); # <- you may want to add sslmode=require there too
+  return "user=$user password=$pass host=$host dbname=" . substr($path, 1); # <- you may want to add sslmode=require there too
+  echo $user;
+  echo $pass;
+  echo $host;
+  echo $path;
 }
 
 $conn = pg_connection_string_from_database_url();
