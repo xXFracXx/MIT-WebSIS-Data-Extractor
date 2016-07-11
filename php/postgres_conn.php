@@ -7,8 +7,12 @@ function pg_connection_string_from_database_url() {
   $port = parse_url($url, PHP_URL_PORT);
   $db_temp = parse_url($url, PHP_URL_PATH);
   $db = ltrim($db_temp, '/');
-  echo $user." ".$pass." ".$host." ".$port." ".$db;
-  return "user=$user password=$pass host=$host port=$port dbname=$db";
+  //echo $user." ".$pass." ".$host." ".$port." ".$db;
+  return "user=".$user." password=".$pass." host=".$host." port=".$port." dbname=".$db;
+}
+
+if(pg_connect($conn) == 'FALSE') {
+    echo "fail";
 }
 
 $conn = pg_connection_string_from_database_url();
