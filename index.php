@@ -2,7 +2,7 @@
 require('lib.php');
 require('extract_data.php');
 
-$base_url = getCurrentUri();
+$base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
 foreach($routes as $route) {
@@ -40,7 +40,7 @@ if($routes[2] == "marks") {
     $data = get_course_data($data_html);
 }
 
-echo $_SERVER['REQUEST_URI'];
+echo $base_url;
 echo nl2br("\n");
 echo $routes[0];
 echo nl2br("\n");
