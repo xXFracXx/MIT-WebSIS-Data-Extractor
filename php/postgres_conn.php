@@ -22,7 +22,7 @@ function test_pg_conn() {
     if (!pg_num_rows($result)) {
       print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
     } else {
-      print "Tables in your database:\n";
+      print "Data in student_info:\n";
       while ($row = pg_fetch_row($result)) { print("- $row[0] $row[1]\n"); }
     }
     print "\n</pre>";
