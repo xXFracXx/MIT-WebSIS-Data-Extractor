@@ -65,7 +65,7 @@ function dispData($jdata, $id, $col) {
     $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
     if(pg_num_rows($result)) {
-        pg_query($pg_conn, "UPDATE student_info SET $col = '$jdata' WHERE roll_no = '$id' ");
+        pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id' ");
     }
 }
 
