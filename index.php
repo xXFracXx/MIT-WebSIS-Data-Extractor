@@ -41,15 +41,7 @@ if($routes[2] == "marks") {
 }
 
 echo $base_url;
-echo nl2br("\n");
-echo $routes[0];
-echo nl2br("\n");
-echo $routes[1];
-echo nl2br("\n");
-echo $routes[2];
-echo nl2br("\n");
-echo $routes[3];
-echo nl2br("\n\n");
+echo $data_page;
 
 $json = json_encode($data, JSON_PRETTY_PRINT);
 printf('<pre>%s</pre>', $json)
