@@ -18,12 +18,7 @@ $pg_conn = pg_connect($conn);
 function test_pg_conn() {
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info");
     print $result;
-    if (!$result) {
-      print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
-    } else {
-      print "Tables in your database:\n";
-      while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
-    }
+    while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
     print "\n";
     exit();
 }
