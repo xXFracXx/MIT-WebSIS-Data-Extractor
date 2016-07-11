@@ -17,7 +17,7 @@ function pg_connection_string_from_database_url() {
 function test_pg_conn() {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT * FROM student_info");
+    $result = pg_query($pg_conn, "SELECT roll_no, date_of_birth FROM student_info");
     print "<pre>\n";
     if (!pg_num_rows($result)) {
       print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
@@ -32,7 +32,7 @@ function test_pg_conn() {
 function addToDB($id, $dob) {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT * FROM student_info WHERE roll_no ='$id'");
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
 
     if(!pg_num_rows($result)) {
         pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob') ");
