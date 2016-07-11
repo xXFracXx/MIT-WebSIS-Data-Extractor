@@ -44,7 +44,7 @@ function get_course_data($html){
             $row_count++;
         }
     }
-
+    array_splice($c_data, 0, 1);
     return $c_data;
 }
 
@@ -93,7 +93,7 @@ function get_attendance_data($html) {
             $row_count++;
         }
     }
-
+    array_splice($a_data, 0, 1);
     return $a_data;
 }
 
@@ -132,7 +132,7 @@ function get_IA1_data($html) {
             }
         }
     }
-
+    array_splice($IA1_data, 0, 1);
     return $IA1_data;
 }
 
@@ -171,7 +171,7 @@ function get_IA2_data($html) {
             }
         }
     }
-
+    array_splice($IA2_data, 0, 1);
     return $IA2_data;
 }
 
@@ -210,7 +210,7 @@ function get_IA3_data($html) {
             }
         }
     }
-
+    array_splice($IA3_data, 0, 1);
     return $IA3_data;
 }
 
