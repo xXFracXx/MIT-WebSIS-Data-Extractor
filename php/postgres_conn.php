@@ -1,8 +1,13 @@
 <?php
 function pg_connection_string_from_database_url() {
-  extract(parse_url($_ENV["DATABASE_URL"]));
-  var_dump(parse_url($_ENV["DATABASE_URL"]));
-  return "user=$user password=$pass host=$host dbname=" . substr($path, 1); # <- you may want to add sslmode=require there too
+  $url = $_ENV["DATABASE_URL"];
+  $user = parse_url($url, PHP_URL_USER);
+  $pass = parse_url($url, PHP_URL_PASS);
+  $host = parse_url($url, PHP_URL_HOST);
+  $port = parse_url($url, PHP_URL_PORT);
+  $db_temp = parse_url($url, PHP_URL_PATH);
+  $db = ltrim($db_temp, '/');
+  return "user=$user password=$pass host=$host port=$port dbname=$db";
 }
 
 $conn = pg_connection_string_from_database_url();
