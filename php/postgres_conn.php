@@ -7,11 +7,16 @@ function pg_connection_string_from_database_url() {
   $port = parse_url($url, PHP_URL_PORT);
   $db_temp = parse_url($url, PHP_URL_PATH);
   $db = ltrim($db_temp, '/');
+  echo $user." ".$pass." ".$host." ".$port." "$db; 
   return "user=$user password=$pass host=$host port=$port dbname=$db";
 }
 
 $conn = pg_connection_string_from_database_url();
 $pg_conn = pg_connect($conn);
+
+if(pg_connect($conn) == 'FALSE') {
+    echo "fail";
+}
 
 function test_pg_conn() {
     $result = pg_query($pg_conn, "SELECT * FROM student_info");
