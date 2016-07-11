@@ -14,7 +14,7 @@ foreach($routes as $route) {
 $student_id = (string)$routes[0];
 $student_dob = (string)$routes[1];
 
-$post_cred = "idValue=".$routes[0]."&birthDate_i18n=".$routes[1]."&birthDate=".$routes[1];
+$post_cred = "idValue=".$routes[1]."&birthDate_i18n=".$routes[2]."&birthDate=".$routes[2];
 
 $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
 
@@ -42,6 +42,8 @@ if($routes[2] == "marks") {
 
 echo $base_url;
 echo $post_cred;
+
+$data = get_course_data($data_html);
 
 $json = json_encode($data, JSON_PRETTY_PRINT);
 printf('<pre>%s</pre>', $json)
