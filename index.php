@@ -1,7 +1,7 @@
 <?php
-require('lib.php');
-require('extract_data.php');
-require('postgres_conn.php');
+require('php/lib.php');
+require('php/extract_data.php');
+require('php/postgres_conn.php');
 
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
