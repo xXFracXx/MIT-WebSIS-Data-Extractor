@@ -11,20 +11,27 @@ function pg_connection_string_from_database_url() {
   return $conn_url;
 }
 
-$conn = pg_connection_string_from_database_url();
-$pg_conn = pg_connect($conn);
+// $conn = pg_connection_string_from_database_url();
+// $pg_conn = pg_connect($conn);
 
 function test_pg_conn() {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info");
-    print $result;
-    while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
-    print "\n";
+    $result = pg_query($pg_conn, "SELECT * FROM student_info");
+    print "<pre>\n";
+    if (!pg_num_rows($result)) {
+      print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
+    } else {
+      print "Tables in your database:\n";
+      while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
+    }
+    print "\n</pre>";
     exit();
 }
 
 function addToDB($id, $dob) {
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT * FROM student_info WHERE roll_no ='$id'");
 
     if(!pg_num_rows($result)) {
