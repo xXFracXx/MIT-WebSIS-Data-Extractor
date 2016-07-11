@@ -23,10 +23,10 @@ function test_pg_conn() {
 function addToDB($id, $dob) {
     $result = pg_query($pg_conn, "SELECT * FROM student_info WHERE roll_no ='$id'");
 
-    if( pg_num_rows($result) > 0) {
-        pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id' ");
+    if(!pg_num_rows($result)) {
+        pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob') ");
     } else {
-        pg_query($pg_conn, "INSERT INTO student_info (roll_no, date_of_birth) VALUES ('$id', '$dob') ");
+        pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id' ");
     }
 }
 ?>
