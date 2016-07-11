@@ -43,6 +43,8 @@ if($routes[2] == "marks") {
 echo $base_url;
 echo $data_page;
 
+$data = get_course_data($data_html);
+
 $json = json_encode($data, JSON_PRETTY_PRINT);
 printf('<pre>%s</pre>', $json)
 
