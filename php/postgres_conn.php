@@ -26,7 +26,6 @@ function test_pg_conn() {
       while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
     }
     print "\n</pre>";
-    exit();
 }
 
 function addToDB($id, $dob) {
