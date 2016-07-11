@@ -13,7 +13,6 @@ foreach($routes as $route) {
 
 if($routes[1] == "test") {
     //test stuff
-    echo now();
     exit();
 }
 
