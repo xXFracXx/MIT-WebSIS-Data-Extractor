@@ -51,6 +51,11 @@ function post_data($site,$data){
     unset($datapost);
 }
 
+function dispjSON($jdata) {
+    $json = json_encode($jdata, JSON_PRETTY_PRINT);
+    printf('<pre>%s</pre>', $json);
+}
+
 // /*
 // The following function will strip the script name from URL i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
 // */
