@@ -61,25 +61,25 @@ function checkLogin($data_html) {
 function dispData($jdata, $id, $col) {
     $json = json_encode($jdata, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
-    addDataToDB($jdata, $id, $col);
+    addDataToDB($json, $id, $col);
 }
 
 function extractAllDataToDB($data_html, $student_id) {
     $data = get_attendance_data($data_html);
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    addDataToDB($jdata, $id, "attendance");
+    addDataToDB($json, $id, "attendance");
     $data = get_course_data($data_html);
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    addDataToDB($jdata, $id, "course");
+    addDataToDB($json, $id, "course");
     $data = get_IA1_data($data_html);
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    addDataToDB($jdata, $id, "marks_ia1");
+    addDataToDB($json, $id, "marks_ia1");
     $data = get_IA2_data($data_html);
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    addDataToDB($jdata, $id, "marks_ia2");
+    addDataToDB($json, $id, "marks_ia2");
     $data = get_IA3_data($data_html);
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    addDataToDB($jdata, $id, "marks_ia3");
+    addDataToDB($json, $id, "marks_ia3");
 }
 
 // /*
