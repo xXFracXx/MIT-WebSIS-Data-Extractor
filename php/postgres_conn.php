@@ -28,7 +28,7 @@ function test_pg_conn() {
     print "\n</pre>";
 }
 
-function addToDB($id, $dob) {
+function addStudentInfoToDB($id, $dob) {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
@@ -37,6 +37,17 @@ function addToDB($id, $dob) {
         pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob')");
     } else {
         pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id'");
+    }
+}
+
+function addDataToDB($jdata, $id, $col) {
+    $ts_col = $col."_ts";
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
+        pg_query($pg_conn, "UPDATE student_info SET $ts_col = CURRENT_TIMESTAMP WHERE roll_no = '$id'");
     }
 }
 ?>

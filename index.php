@@ -40,7 +40,7 @@ if(checkLogin($data_html) == FALSE) {
     print("Invalid Credentials");
     exit();
 } else {
-    addToDB($student_id,$student_dob);
+    addStudentInfoToDB($student_id,$student_dob);
     if($routes[3] == "marks") {
         if($routes[4] == "IA1") {
             $data = get_IA1_data($data_html);
@@ -58,6 +58,8 @@ if(checkLogin($data_html) == FALSE) {
     } else if($routes[3] == "course") {
         $data = get_course_data($data_html);
         dispData($data, $student_id, "course");
+    } else if($routes[3] == "all") {
+        extractAllDataToDB();
     }
 }
 exit();
