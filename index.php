@@ -11,6 +11,12 @@ foreach($routes as $route) {
         array_push($routes, $route);
 }
 
+if($routes[1] == "test") {
+    //test stuff
+    echo now();
+    exit();
+}
+
 if($routes[1] == "postgresTest") {
     test_pg_conn();
     exit();
