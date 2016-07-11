@@ -40,7 +40,7 @@ if($routes[2] == "marks") {
     $data = get_course_data($data_html);
 }
 
-echo $base_url;
+echo $_SERVER['REQUEST_URI'];
 echo nl2br("\n");
 echo $routes[0];
 echo nl2br("\n");
