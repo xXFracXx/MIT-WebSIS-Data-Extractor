@@ -34,9 +34,9 @@ function addToDB($id, $dob) {
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
 
     if(!pg_num_rows($result)) {
-        pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob') ");
+        pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob')");
     } else {
-        pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id' ");
+        pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id'");
     }
 }
 ?>

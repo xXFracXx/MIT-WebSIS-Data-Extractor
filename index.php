@@ -55,4 +55,5 @@ if(checkLogin($data_html) == FALSE) {
         dispData($data, $student_id, "course");
     }
 }
+exit();
 ?>
