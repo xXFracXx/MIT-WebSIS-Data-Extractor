@@ -64,8 +64,22 @@ function dispData($jdata, $id, $col) {
     addDataToDB($jdata, $id, $col);
 }
 
-function extractAllDataToDB() {
-    
+function extractAllDataToDB($data_html, $student_id) {
+    $data = get_attendance_data($data_html);
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    addDataToDB($jdata, $id, "attendance");
+    $data = get_course_data($data_html);
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    addDataToDB($jdata, $id, "course");
+    $data = get_IA1_data($data_html);
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    addDataToDB($jdata, $id, "marks_ia1");
+    $data = get_IA2_data($data_html);
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    addDataToDB($jdata, $id, "marks_ia2");
+    $data = get_IA3_data($data_html);
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    addDataToDB($jdata, $id, "marks_ia3");
 }
 
 // /*

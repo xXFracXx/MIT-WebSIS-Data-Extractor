@@ -59,7 +59,7 @@ if(checkLogin($data_html) == FALSE) {
         $data = get_course_data($data_html);
         dispData($data, $student_id, "course");
     } else if($routes[3] == "all") {
-        extractAllDataToDB();
+        extractAllDataToDB($data_html, $student_id);
     }
 }
 exit();
