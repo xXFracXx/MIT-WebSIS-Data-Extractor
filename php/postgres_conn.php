@@ -17,7 +17,7 @@ $pg_conn = pg_connect($conn);
 
 function test_pg_conn() {
     $result = pg_query($pg_conn, "SELECT * FROM student_info");
-    print "<pre>\n";
+    print $result;
     if (!$result) {
       print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
     } else {
