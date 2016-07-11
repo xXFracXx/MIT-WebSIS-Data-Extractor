@@ -11,6 +11,10 @@ foreach($routes as $route) {
 }
 //Now, $routes will contain all the routes. $routes[0] will correspond to first route. For e.g. in above example $routes[0] is search, $routes[1] is book and $routes[2] is fitzgerald
 
+if($routes[1] == "test") {
+    header('Location: test.php');
+}
+
 $student_id = (string)$routes[1];
 $student_dob = (string)$routes[2];
 
