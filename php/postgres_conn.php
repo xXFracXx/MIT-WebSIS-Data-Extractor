@@ -69,6 +69,8 @@ function downloadFromDB($id, $col) {
     var_dump($data_temp); echo nl2br("\n\n\n");
     $data = json_decode($data_temp[0]);
     var_dump($data); echo nl2br("\n\n\n");
-    return $data;
+    $data_final = (array)$data;
+    var_dump($data); echo nl2br("\n\n\n");
+    return $data_final;
 }
 ?>
