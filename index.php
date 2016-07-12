@@ -63,6 +63,8 @@ if(checkLogin($data_html) == FALSE) {
         $requested_sem = $routes[4];
     }
 
+    echo $requested_sem;
+
     if(!($requested_sem <= $latest_sem && $requested_sem > 0)) {
         echo "Invalid semester request!";
         exit();
