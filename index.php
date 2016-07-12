@@ -56,9 +56,9 @@ if(checkLogin($data_html) == FALSE) {
     exit();
 } else {
     addStudentInfoToDB($student_id,$student_dob);
-    $existing_info = grabExistingData($student_id);
-
-    var_dump($existing_info); echo nl2br("\n\n\n");
+    // $existing_info = grabExistingData($student_id);
+    //
+    // var_dump($existing_info); echo nl2br("\n\n\n");
 
     $student_yr = substr($student_id, 0, 2);
 
@@ -76,11 +76,13 @@ if(checkLogin($data_html) == FALSE) {
 
     $links = genLinks($student_yr, $latest_sem);
 
-    var_dump($links);
-
     if($routes[3] == "semester") {
         if($routes[5] == "attendance") {
             $data = get_attendance_data($requested_sem, $links);
+            dispData($data);
+            exit();
+        } else if($routes[5] == "course") {
+            $data = get_course_data($requested_sem, $links);
             dispData($data);
             exit();
         }

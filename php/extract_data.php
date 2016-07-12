@@ -1,5 +1,8 @@
 <?php
-function get_course_data($html){
+function get_course_data($requested_sem, $links){
+    $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($final_link);
+    $html = str_get_html($data_page);
     $row_count = 0;
     $col = 0;
     foreach($html->find('table[id=ListTermEnrollment_table]') as $table) {
@@ -49,7 +52,6 @@ function get_course_data($html){
 
 function get_attendance_data($requested_sem, $links) {
     $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
-    echo $final_link;
     $data_page = grab_page($final_link);
     $html = str_get_html($data_page);
     $row_count = 0;
