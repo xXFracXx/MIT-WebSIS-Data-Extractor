@@ -79,9 +79,6 @@ function extractAllDataToDB($data_html, $id) {
     $data5 = get_IA3_data($data_html);
     $json = json_encode($data5);
     addDataToDB($json, $id, "marks_ia3");
-
-    if($routes[3] == "all")
-        print "All data transfered to Database";
 }
 
 // /*

@@ -60,6 +60,7 @@ if(checkLogin($data_html) == FALSE) {
         dispData($data, $student_id, $data_html);
     } else if($routes[3] == "all") {
         extractAllDataToDB($data_html, $student_id);
+        print "All data transfered to Database";
     }
 }
 exit();
