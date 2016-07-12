@@ -3,6 +3,12 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
+$date = date('Y/m/d');
+foreach($date as $d) {
+    if(trim($d) != '')
+        array_push($current_date, $d);
+}
+
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
@@ -30,10 +36,10 @@ $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
 
 login($login_url, $post_cred);
 
-//$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
-$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
+$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
+//$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
 
-$data_page = grab_page($student_latest_enrollment); //echo $page;
+$data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
 if($routes[3] == "testAfterLogin") {
@@ -50,27 +56,46 @@ if(checkLogin($data_html) == FALSE) {
     exit();
 } else {
     addStudentInfoToDB($student_id,$student_dob);
-    if($routes[3] == "marks") {
-        if($routes[4] == "IA1") {
-            $data = get_IA1_data($data_html);
-            dispData($data, $student_id, $data_html);
-        } else if($routes[4] == "IA2") {
-            $data = get_IA2_data($data_html);
-            dispData($data, $student_id, $data_html);
-        } else if($routes[4] == "IA3") {
-            $data = get_IA3_data($data_html);
-            dispData($data, $student_id, $data_html);
+    $existing_info = grabExistingData($student_id);
+
+    $student_yr = substr($student_id, 0, 2);
+    $latest_sem = findCurrentSem($student_year, $current_date);
+    if($routes[4] == "latest")
+        $requested_sem = $latest_sem;
+    else
+        $requested_sem = $routes[4];
+
+    $links = genLinks($student_yr, $latest_sem);
+
+    if($routes[3] == "semester") {
+        if($routes[5] == "attendance") {
+            $data = get_attendance_data($requested_sem, $links);
+            dispData($data);
+            pushToDB()
+
         }
-    } else if($routes[3] == "attendance") {
-        $data = get_attendance_data($data_html);
-        dispData($data, $student_id, $data_html);
-    } else if($routes[3] == "course") {
-        $data = get_course_data($data_html);
-        dispData($data, $student_id, $data_html);
-    } else if($routes[3] == "all") {
-        extractAllDataToDB($data_html, $student_id);
-        print "All data transfered to Database";
     }
+    // if($routes[3] == "marks") {
+    //     if($routes[4] == "IA1") {
+    //         $data = get_IA1_data($data_html);
+    //         dispData($data, $student_id, $data_html);
+    //     } else if($routes[4] == "IA2") {
+    //         $data = get_IA2_data($data_html);
+    //         dispData($data, $student_id, $data_html);
+    //     } else if($routes[4] == "IA3") {
+    //         $data = get_IA3_data($data_html);
+    //         dispData($data, $student_id, $data_html);
+    //     }
+    // } else if($routes[3] == "attendance") {
+    //     $data = get_attendance_data($data_html);
+    //     dispData($data, $student_id, $data_html);
+    // } else if($routes[3] == "course") {
+    //     $data = get_course_data($data_html);
+    //     dispData($data, $student_id, $data_html);
+    // } else if($routes[3] == "all") {
+    //     extractAllDataToDB($data_html, $student_id);
+    //     print "All data transfered to Database";
+    // }
 }
 exit();
 ?>

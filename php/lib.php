@@ -57,10 +57,9 @@ function checkLogin($data_html) {
     return FALSE;
 }
 
-function dispData($data, $id, $data_html) {
+function dispData($data) {
     $json = json_encode($data, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
-    extractAllDataToDB($data_html, $id);
 }
 
 function extractAllDataToDB($data_html, $id) {
@@ -79,6 +78,49 @@ function extractAllDataToDB($data_html, $id) {
     $data5 = get_IA3_data($data_html);
     $json = json_encode($data5);
     addDataToDB($json, $id, "marks_ia3");
+}
+
+function findCurrentSem($student_year, $current_date) {
+    $x = substr($current_date[1], 2, 2) - $student_year;
+    if($current_date[2] > 6 && $current_date[3] > 3) {
+        $y = 2;
+    } else {
+        $y = 1;
+    }
+    switch ($x) {
+        case 0: return 1;
+                break;
+        case 1: if($y == 1)
+                    return 2;
+                else
+                    return 3;
+                break;
+        case 2: if($y == 1)
+                    return 4;
+                else
+                    return 5;
+                break;
+        case 3: if($y == 1)
+                    return 6;
+                else
+                    return 7;
+                break;
+        case 3: return 8;
+                break;
+        default: return 0;
+                 break;
+    }
+}
+
+function genLinks($student_yr, $latest_sem) {
+    $sem = $latest_sem;
+    while($sem > 0) {
+        $month = ($sem%2 == 0 ? "MAY" : "NOV");
+        $year = $student_yr + ($sem/2);
+        $links[$sem] = $month."20".$year;
+        $sem = $sem - 1;
+    }
+    return $links;
 }
 
 // /*
