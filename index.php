@@ -62,8 +62,6 @@ if(checkLogin($data_html) == FALSE) {
 
     $student_yr = substr($student_id, 0, 2);
 
-    echo $student_yr; echo nl2br("\n\n\n");
-
     $latest_sem = findCurrentSem($student_yr, $current_date);
     if($routes[4] == "latest") {
         $requested_sem = $latest_sem;
@@ -71,9 +69,9 @@ if(checkLogin($data_html) == FALSE) {
         $requested_sem = $routes[4];
     }
 
-    echo $latest_sem; echo nl2br("\n\n\n");
-
-    echo $requested_sem; echo nl2br("\n\n\n");
+    if($requested_sem > $latest_sem) {
+        $requested_sem = $latest_sem;
+    }
 
     $links = genLinks($student_yr, $latest_sem);
 
