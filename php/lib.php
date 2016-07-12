@@ -108,10 +108,10 @@ function findCurrentSem($student_yr, $current_date) {
                 else
                     return 7;
                 break;
-        case 3: return 8;
+        case 4: return 8;
                 break;
-        default: return 0;
-                 break;
+        default: echo "Invalid Semester Requested";
+                 exit();
     }
 }
 
