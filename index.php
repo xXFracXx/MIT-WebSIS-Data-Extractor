@@ -4,13 +4,10 @@ require('php/extract_data.php');
 require('php/postgres_conn.php');
 
 $date = date('Y/m/d');
-echo $date;
-// $current_date = array();
-// $current_date = explode('/', $date);
-// foreach($date as $d) {
-//     if(trim($d) != '')
-//         array_push($current_date, $d);
-// }
+$current_date = array();
+echo $current_date[1] = substr($date, 0, 4);
+echo $current_date[2] = substr($date, 5, 2);
+echo $current_date[3] = substr($date, 7, 2);
 
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
