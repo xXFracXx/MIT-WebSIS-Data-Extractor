@@ -64,7 +64,7 @@ if(checkLogin($data_html) == FALSE) {
 
     echo $student_yr; echo nl2br("\n\n\n");
 
-    $latest_sem = findCurrentSem($student_year, $current_date);
+    $latest_sem = findCurrentSem($student_yr, $current_date);
     if($routes[4] == "latest") {
         $requested_sem = $latest_sem;
     } else {
