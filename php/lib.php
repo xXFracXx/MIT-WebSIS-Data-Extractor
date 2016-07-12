@@ -82,11 +82,13 @@ function extractAllDataToDB($data_html, $id) {
 
 function findCurrentSem($student_year, $current_date) {
     $x = substr($current_date[1], 2, 2) - $student_year;
+    echo $x; echo nl2br("\n\n\n");
     if($current_date[2] > 6 && $current_date[3] > 3) {
         $y = 2;
     } else {
         $y = 1;
     }
+    echo $y; echo nl2br("\n\n\n");
     switch ($x) {
         case 0: return 1;
                 break;
