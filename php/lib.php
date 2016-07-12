@@ -62,24 +62,6 @@ function dispData($data) {
     printf('<pre>%s</pre>', $json);
 }
 
-function extractAllDataToDB($data_html, $id) {
-    $data1 = get_attendance_data($data_html);
-    $json = json_encode($data1);
-    addDataToDB($json, $id, "attendance");
-    $data2 = get_course_data($data_html);
-    $json = json_encode($data2);
-    addDataToDB($json, $id, "course");
-    $data3 = get_IA1_data($data_html);
-    $json = json_encode($data3);
-    addDataToDB($json, $id, "marks_ia1");
-    $data4 = get_IA2_data($data_html);
-    $json = json_encode($data4);
-    addDataToDB($json, $id, "marks_ia2");
-    $data5 = get_IA3_data($data_html);
-    $json = json_encode($data5);
-    addDataToDB($json, $id, "marks_ia3");
-}
-
 function findCurrentSem($student_yr, $current_date) {
     $temp = (int)substr($current_date[1], 2, 2);
     $x = $temp - $student_yr;
