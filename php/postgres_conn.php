@@ -45,7 +45,7 @@ function addStudentInfoToDB($id, $dob) {
 
 function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
-    $old_info = downloadFromDB($id, $col);
+    $old_info = (array)downloadFromDB($id, $col);
     $new_info[$db_sem] = $data;
     var_dump($old_info);echo nl2br("\n\n\n");
     var_dump($new_info);echo nl2br("\n\n\n");
