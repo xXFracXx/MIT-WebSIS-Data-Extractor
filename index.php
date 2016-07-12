@@ -36,7 +36,7 @@ $student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCT
 $data_page = grab_page($student_latest_enrollment); //echo $page;
 $data_html = str_get_html($data_page);
 
-if($routes[1] == "testAfterLogin") {
+if($routes[3] == "testAfterLogin") {
     $data = get_attendance_data($data_html);
     $attendance[0] = $data;
     $attendance[1] = $data;
