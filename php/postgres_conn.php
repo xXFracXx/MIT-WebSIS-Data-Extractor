@@ -46,11 +46,11 @@ function addStudentInfoToDB($id, $dob) {
 function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
     $old_info = downloadFromDB($id, $col);
-    $new_info[$db_sem]['timestamp'] = date("Y/m/d h:i:sa");
     $new_info[$db_sem] = $data;
     $final_info = array_merge($old_info, $new_info);
+    echo date("Y/m/d h:i:sa");
+    $final_info[$db_sem]["timestamp"] = date("Y/m/d h:i:sa");
     $json = json_encode($final_info);
-    printf('<pre>%s</pre>', $json);
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
