@@ -47,11 +47,8 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
     $old_info = (array)downloadFromDB($id, $col);
     $new_info[$db_sem] = $data;
-    var_dump($old_info);echo nl2br("\n\n\n");
-    var_dump($new_info);echo nl2br("\n\n\n");
     $final_info = array_merge($old_info, $new_info);
     $final_info[$db_sem]["timestamp"] = date("Y/m/d h:i:sa");
-    var_dump($final_info);
     $json = json_encode($final_info);
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
