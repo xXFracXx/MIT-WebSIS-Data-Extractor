@@ -102,7 +102,10 @@ function get_attendance_data($requested_sem, $links) {
     return $a_data;
 }
 
-function get_IA1_data($html) {
+function get_IA1_data($requested_sem, $links) {
+    $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($final_link);
+    $html = str_get_html($data_page);
     $row_count = 0;
     $col = 0;
     foreach($html->find('div.screenlet') as $main_table_div) {
@@ -141,7 +144,10 @@ function get_IA1_data($html) {
     return $IA1_data;
 }
 
-function get_IA2_data($html) {
+function get_IA2_data($requested_sem, $links) {
+    $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($final_link);
+    $html = str_get_html($data_page);
     $row_count = 0;
     $col = 0;
     foreach($html->find('div.screenlet') as $main_table_div) {
@@ -180,7 +186,10 @@ function get_IA2_data($html) {
     return $IA2_data;
 }
 
-function get_IA3_data($html) {
+function get_IA3_data($requested_sem, $links) {
+    $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($final_link);
+    $html = str_get_html($data_page);
     $row_count = 0;
     $col = 0;
     foreach($html->find('div.screenlet') as $main_table_div) {

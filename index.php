@@ -80,11 +80,20 @@ if(checkLogin($data_html) == FALSE) {
         if($routes[5] == "attendance") {
             $data = get_attendance_data($requested_sem, $links);
             dispData($data);
-            exit();
         } else if($routes[5] == "course") {
             $data = get_course_data($requested_sem, $links);
             dispData($data);
-            exit();
+        } else if($routes[5] == "marks") {
+            if($routes[6] == "IA1") {
+                $data = get_IA1_data($requested_sem, $links);
+                dispData($data);
+            } else if($routes[6] == "IA2") {
+                $data = get_IA2_data($requested_sem, $links);
+                dispData($data);
+            } else if($routes[6] == "IA3") {
+                $data = get_IA3_data($requested_sem, $links);
+                dispData($data);
+            }
         }
     }
     // if($routes[3] == "marks") {
