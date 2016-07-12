@@ -70,8 +70,8 @@ if(checkLogin($data_html) == FALSE) {
 
     $links = genLinks($student_yr, $latest_sem);
 
-    $final_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
-    $data_page = grab_page($final_link);
+    $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($request_link);
     $data_html = str_get_html($data_page);
 
     if($routes[3] == "semester") {
@@ -95,16 +95,21 @@ if(checkLogin($data_html) == FALSE) {
         }
     }
 
-    // if($is_new_user == TRUE) {
-    //     $sem_count = $latest_sem;
-    //     while($sem_count > 0) {
-    //
-    //     }
-    //
-    // }
-
-    if($is_new_user == TRUE)
-        echo "new user";
+    if($is_new_user == FALSE){
+        $sem_count = $latest_sem;
+        while($sem_count > 0) {
+            $link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$sem_count];
+            $data_page = grab_page($link);
+            $data_html = str_get_html($data_page);
+            $sem_string = "Semester ".$sem_count;
+            $info["attendance"][$sem_string] =  get_attendance_data($data_html);
+            $info["course"][$sem_string] =  get_course_data($data_html);
+            $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
+            $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
+            $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
+            var_dump($info);
+        }
+    }
 }
 exit();
 ?>
