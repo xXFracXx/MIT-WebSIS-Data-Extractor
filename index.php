@@ -70,7 +70,8 @@ if(checkLogin($data_html) == FALSE) {
     }
 
     if($requested_sem > $latest_sem) {
-        $requested_sem = $latest_sem;
+        echo "Invalid semester request!";
+        exit();
     }
 
     $links = genLinks($student_yr, $latest_sem);
