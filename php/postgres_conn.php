@@ -43,18 +43,20 @@ function addStudentInfoToDB($id, $dob) {
     }
 }
 
-// function uploadToDB($data, $id, $requested_sem, $col) {
-//     $old_data = downloadFromDB($id, $col);
-//     $data_final = array_merge($old_data, $data);
-//     $json = json_encode($data_final);
-//     $conn = pg_connection_string_from_database_url();
-//     $pg_conn = pg_connect($conn);
-//     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-//     if(pg_num_rows($result)) {
-//         pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
-//     }
-// }
-//
+function uploadToDB($data, $id, $requested_sem, $col) {
+    $db_sem = "Semester ".$requested_sem;
+    //$old_info = downloadFromDB($id, $col);
+    $new_info[$col][$db_sem] = $data;
+    //$data_final = array_merge($old_info, $new_info);
+    $json = json_encode($new_info); //data_final
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
+    }
+}
+
 // function downloadFromDB($id, $col) {
 //     $conn = pg_connection_string_from_database_url();
 //     $pg_conn = pg_connect($conn);
