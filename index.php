@@ -3,6 +3,12 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
+$date = date('Y/m/d');
+$current_date = array();
+$current_date[1] = substr($date, 0, 4);
+$current_date[2] = substr($date, 5, 2);
+$current_date[3] = substr($date, 8, 2);
+
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
@@ -30,18 +36,14 @@ $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
 
 login($login_url, $post_cred);
 
-//$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
-$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
+$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
+//$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
 
-$data_page = grab_page($student_latest_enrollment); //echo $page;
+$data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
 if($routes[3] == "testAfterLogin") {
-    $data = get_attendance_data($data_html);
-    $attendance['1'] = $data;
-    $attendance['2'] = $data;
-    $json = json_encode($attendance, JSON_PRETTY_PRINT);
-    printf('<pre>%s</pre>', $json);
+    //test stuff
     exit();
 }
 
@@ -49,27 +51,56 @@ if(checkLogin($data_html) == FALSE) {
     print "Invalid Credentials";
     exit();
 } else {
-    addStudentInfoToDB($student_id,$student_dob);
-    if($routes[3] == "marks") {
-        if($routes[4] == "IA1") {
-            $data = get_IA1_data($data_html);
-            dispData($data, $student_id, $data_html);
-        } else if($routes[4] == "IA2") {
-            $data = get_IA2_data($data_html);
-            dispData($data, $student_id, $data_html);
-        } else if($routes[4] == "IA3") {
-            $data = get_IA3_data($data_html);
-            dispData($data, $student_id, $data_html);
+    $is_new_user = addStudentInfoToDB($student_id,$student_dob);
+
+    $student_yr = substr($student_id, 0, 2);
+
+    $latest_sem = findCurrentSem($student_yr, $current_date);
+    if($routes[4] == "latest") {
+        $requested_sem = $latest_sem;
+    } else {
+        $requested_sem = $routes[4];
+    }
+
+    if($requested_sem > $latest_sem || $requested_sem < 0) {
+        echo "Invalid semester request!";
+        exit();
+    }
+
+    $links = genLinks($student_yr, $latest_sem);
+
+    $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($request_link);
+    $data_html = str_get_html($data_page);
+
+    if($routes[3] == "semester") {
+        if($routes[5] == "attendance") {
+            $data = get_attendance_data($data_html);
+            dispData($data);
+            uploadToDB($data, $student_id, $requested_sem, "attendance");
+        } else if($routes[5] == "course") {
+            $data = get_course_data($data_html);
+            dispData($data);
+            uploadToDB($data, $student_id, $requested_sem, "course");
+        } else if($routes[5] == "marks") {
+            if($routes[6] == "IA1") {
+                $data = get_IA1_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
+            } else if($routes[6] == "IA2") {
+                $data = get_IA2_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
+            } else if($routes[6] == "IA3") {
+                $data = get_IA3_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
+            }
         }
-    } else if($routes[3] == "attendance") {
-        $data = get_attendance_data($data_html);
-        dispData($data, $student_id, $data_html);
-    } else if($routes[3] == "course") {
-        $data = get_course_data($data_html);
-        dispData($data, $student_id, $data_html);
-    } else if($routes[3] == "all") {
-        extractAllDataToDB($data_html, $student_id);
-        print "All data transfered to Database";
+    }
+
+    if($is_new_user == TRUE){
+
     }
 }
 exit();

@@ -57,42 +57,55 @@ function checkLogin($data_html) {
     return FALSE;
 }
 
-function dispData($data, $id, $data_html) {
+function dispData($data) {
     $json = json_encode($data, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
-    extractAllDataToDB($data_html, $id);
 }
 
-function extractAllDataToDB($data_html, $id) {
-    $data1 = get_attendance_data($data_html);
-    $json = json_encode($data1);
-    addDataToDB($json, $id, "attendance");
-    $data2 = get_course_data($data_html);
-    $json = json_encode($data2);
-    addDataToDB($json, $id, "course");
-    $data3 = get_IA1_data($data_html);
-    $json = json_encode($data3);
-    addDataToDB($json, $id, "marks_ia1");
-    $data4 = get_IA2_data($data_html);
-    $json = json_encode($data4);
-    addDataToDB($json, $id, "marks_ia2");
-    $data5 = get_IA3_data($data_html);
-    $json = json_encode($data5);
-    addDataToDB($json, $id, "marks_ia3");
+function findCurrentSem($student_yr, $current_date) {
+    $temp = (int)substr($current_date[1], 2, 2);
+    $x = $temp - $student_yr;
+    if($current_date[2] > 7 && $current_date[3] > 3) {
+        $y = 2;
+    } else {
+        $y = 1;
+    }
+    switch ($x) {
+        case 0: return 1;
+                break;
+        case 1: if($y == 1)
+                    return 2;
+                else
+                    return 3;
+                break;
+        case 2: if($y == 1)
+                    return 4;
+                else
+                    return 5;
+                break;
+        case 3: if($y == 1)
+                    return 6;
+                else
+                    return 7;
+                break;
+        case 4: return 8;
+                break;
+        default: echo "Error @ findCurrentSem()";
+                 exit();
+    }
 }
 
-// /*
-// The following function will strip the script name from URL i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
-// */
-//
-// function getCurrentUri()
-// {
-//     $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
-//     $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
-//     if (strstr($uri, '?')) $uri = substr($uri, 0, strpos($uri, '?'));
-//     $uri = '/' . trim($uri, '/');
-//     return $uri;
-// }
+function genLinks($student_yr, $latest_sem) {
+    $sem = $latest_sem;
+    while($sem > 0) {
+        $month = ($sem%2 == 0 ? "MAY" : "NOV");
+        $semBy2 = (int)($sem/2);
+        $year = $student_yr + $semBy2;
+        $links[$sem] = $month."20".$year;
+        $sem = $sem - 1;
+    }
+    return $links;
+}
 
 define('HDOM_TYPE_ELEMENT', 1);
 define('HDOM_TYPE_COMMENT', 2);

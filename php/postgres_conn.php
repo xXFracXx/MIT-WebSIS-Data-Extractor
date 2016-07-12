@@ -31,22 +31,42 @@ function test_pg_conn() {
 function addStudentInfoToDB($id, $dob) {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-
-    if(!pg_num_rows($result)) {
+    $result_id = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    $result_dob = pg_query($pg_conn, "SELECT date_of_birth FROM student_info WHERE roll_no ='$id'");
+    if(!pg_num_rows($result_id)) {
         pg_query($pg_conn, "INSERT INTO student_info VALUES ('$id', '$dob')");
+        return TRUE;
     } else {
-        pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id'");
+        if($result_dob != $dob)
+            pg_query($pg_conn, "UPDATE student_info SET date_of_birth = '$dob' WHERE roll_no = '$id'");
+        return FALSE;
     }
 }
 
-function addDataToDB($json, $id, $col) {
+function uploadToDB($data, $id, $requested_sem, $col) {
+    $db_sem = "Semester ".$requested_sem;
+    $old_info = (array)downloadFromDB($id, $col);
+    $new_info[$db_sem] = $data;
+    $final_info = array_merge($old_info, $new_info);
+    $final_info[$db_sem]["timestamp"] = date("Y/m/d h:i:sa");
+    $json = json_encode($final_info);
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
     if(pg_num_rows($result)) {
         pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
-        pg_query($pg_conn, "UPDATE student_info SET ts = CURRENT_TIMESTAMP WHERE roll_no = '$id'");
     }
+}
+
+function downloadFromDB($id, $col) {
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        $result2 = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
+    }
+    $data_temp = pg_fetch_row($result2);
+    $data = json_decode($data_temp[0], True);
+    return $data;
 }
 ?>
