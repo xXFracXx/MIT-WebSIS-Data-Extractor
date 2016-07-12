@@ -107,6 +107,7 @@ if(checkLogin($data_html) == FALSE) {
             $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
             $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
             $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
+            $sem_count = $sem_count - 1;
             var_dump($info);
         }
     }
