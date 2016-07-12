@@ -4,7 +4,7 @@ require('php/extract_data.php');
 require('php/postgres_conn.php');
 
 $base_url = $_SERVER['REQUEST_URI'];
-$routes = array();
+global $routes = array();
 $routes = explode('/', $base_url);
 foreach($routes as $route) {
     if(trim($route) != '')
