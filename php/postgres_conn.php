@@ -48,15 +48,14 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     $old_info = downloadFromDB($id, $col);
     $new_info[$db_sem] = $data;
     $final_info = array_merge($old_info, $new_info);
-    var_dump($final_info);
     $json = json_encode($final_info, JSON_PRETTY_PRINT); //data_final
     printf('<pre>%s</pre>', $json);
-    // $conn = pg_connection_string_from_database_url();
-    // $pg_conn = pg_connect($conn);
-    // $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-    // if(pg_num_rows($result)) {
-    //     pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
-    // }
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
+    }
 }
 
 function downloadFromDB($id, $col) {
