@@ -52,7 +52,6 @@ if(checkLogin($data_html) == FALSE) {
     exit();
 } else {
     $is_new_user = addStudentInfoToDB($student_id,$student_dob);
-    //$existing_info = grabExistingData($student_id);
 
     $student_yr = substr($student_id, 0, 2);
 
@@ -74,44 +73,49 @@ if(checkLogin($data_html) == FALSE) {
     $data_page = grab_page($request_link);
     $data_html = str_get_html($data_page);
 
-    // if($routes[3] == "semester") {
-    //     if($routes[5] == "attendance") {
-    //         $data = get_attendance_data($data_html);
-    //         dispData($data);
-    //     } else if($routes[5] == "course") {
-    //         $data = get_course_data($data_html);
-    //         dispData($data);
-    //     } else if($routes[5] == "marks") {
-    //         if($routes[6] == "IA1") {
-    //             $data = get_IA1_data($data_html);
-    //             dispData($data);
-    //         } else if($routes[6] == "IA2") {
-    //             $data = get_IA2_data($data_html);
-    //             dispData($data);
-    //         } else if($routes[6] == "IA3") {
-    //             $data = get_IA3_data($data_html);
-    //             dispData($data);
-    //         }
-    //     }
-    // }
-
-    if($is_new_user == FALSE){
-        $sem_count = $latest_sem;
-        //while($sem_count > 0) {
-            $link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$sem_count];
-            $data_page = grab_page($link);
-            $data_html = str_get_html($data_page);
-            $sem_string = "Semester ".$sem_count;
-            $info["attendance"][$sem_string] =  get_attendance_data($data_html);
-            $info["course"][$sem_string] =  get_course_data($data_html);
-            $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
-            $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
-            $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
-        //    $sem_count = $sem_count - 1;
-        //}
-        $json = json_encode($info, JSON_PRETTY_PRINT);
-        printf('<pre>%s</pre>', $json);
+    if($routes[3] == "semester") {
+        if($routes[5] == "attendance") {
+            $data = get_attendance_data($data_html);
+            dispData($data);
+            uploadToDB($data, $student_id, $requested_sem, "attendance")
+        } else if($routes[5] == "course") {
+            $data = get_course_data($data_html);
+            dispData($data);
+            uploadToDB($data, $student_id, $requested_sem, "course")
+        } else if($routes[5] == "marks") {
+            if($routes[6] == "IA1") {
+                $data = get_IA1_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia1")
+            } else if($routes[6] == "IA2") {
+                $data = get_IA2_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia2")
+            } else if($routes[6] == "IA3") {
+                $data = get_IA3_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia3")
+            }
+        }
     }
+
+    // if($is_new_user == FALSE){
+    //     $sem_count = $latest_sem;
+    //     //while($sem_count > 0) {
+    //         $link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$sem_count];
+    //         $data_page = grab_page($link);
+    //         $data_html = str_get_html($data_page);
+    //         $sem_string = "Semester ".$sem_count;
+    //         $info["attendance"][$sem_string] =  get_attendance_data($data_html);
+    //         $info["course"][$sem_string] =  get_course_data($data_html);
+    //         $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
+    //         $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
+    //         $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
+    //     //    $sem_count = $sem_count - 1;
+    //     //}
+    //     $json = json_encode($info, JSON_PRETTY_PRINT);
+    //     printf('<pre>%s</pre>', $json);
+    // }
 }
 exit();
 ?>
