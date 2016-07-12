@@ -5,9 +5,9 @@ require('php/postgres_conn.php');
 
 $date = date('Y/m/d');
 $current_date = array();
-echo $current_date[1] = substr($date, 0, 4);
-echo $current_date[2] = substr($date, 5, 2);
-echo $current_date[3] = substr($date, 7, 2);
+$current_date[1] = substr($date, 0, 4);
+$current_date[2] = substr($date, 5, 2);
+$current_date[3] = substr($date, 8, 2);
 
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
@@ -58,7 +58,12 @@ if(checkLogin($data_html) == FALSE) {
     addStudentInfoToDB($student_id,$student_dob);
     $existing_info = grabExistingData($student_id);
 
+    echo $existing_info; echo nl2br("\n\n\n");
+
     $student_yr = substr($student_id, 0, 2);
+
+    echo $student_yr; echo nl2br("\n\n\n");
+
     $latest_sem = findCurrentSem($student_year, $current_date);
     if($routes[4] == "latest") {
         $requested_sem = $latest_sem;
@@ -66,7 +71,13 @@ if(checkLogin($data_html) == FALSE) {
         $requested_sem = $routes[4];
     }
 
+    echo $latest_sem; echo nl2br("\n\n\n");
+
+    echo $requested_sem; echo nl2br("\n\n\n");
+
     $links = genLinks($student_yr, $latest_sem);
+
+    var_dump($links);
 
     if($routes[3] == "semester") {
         if($routes[5] == "attendance") {
