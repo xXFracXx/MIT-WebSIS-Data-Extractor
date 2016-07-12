@@ -38,8 +38,8 @@ $data_html = str_get_html($data_page);
 
 if($routes[3] == "testAfterLogin") {
     $data = get_attendance_data($data_html);
-    $attendance[0] = $data;
-    $attendance[1] = $data;
+    $attendance["0"] = $data;
+    $attendance["1"] = $data;
     $json = json_encode($attendance, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
     exit();
