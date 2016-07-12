@@ -36,6 +36,15 @@ $student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCT
 $data_page = grab_page($student_latest_enrollment); //echo $page;
 $data_html = str_get_html($data_page);
 
+if($routes[1] == "testAfterLogin") {
+    $data = get_attendance_data($data_html);
+    $attendance[0] = $data;
+    $attendance[1] = $data;
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    printf('<pre>%s</pre>', $json);
+    exit();
+}
+
 if(checkLogin($data_html) == FALSE) {
     print "Invalid Credentials";
     exit();
