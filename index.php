@@ -4,6 +4,8 @@ require('php/extract_data.php');
 require('php/postgres_conn.php');
 
 $date = date('Y/m/d');
+$current_date = array();
+$current_date = explode('/', $date);
 foreach($date as $d) {
     if(trim($d) != '')
         array_push($current_date, $d);
@@ -60,10 +62,11 @@ if(checkLogin($data_html) == FALSE) {
 
     $student_yr = substr($student_id, 0, 2);
     $latest_sem = findCurrentSem($student_year, $current_date);
-    if($routes[4] == "latest")
+    if($routes[4] == "latest") {
         $requested_sem = $latest_sem;
-    else
+    } else {
         $requested_sem = $routes[4];
+    }
 
     $links = genLinks($student_yr, $latest_sem);
 

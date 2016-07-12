@@ -47,7 +47,10 @@ function get_course_data($html){
     return $c_data;
 }
 
-function get_attendance_data($html) {
+function get_attendance_data($requested_sem, $links) {
+    $final_link = "http://websismit.manipal.edu/sis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+    $data_page = grab_page($final_link);
+    $html = str_get_html($data_page);
     $row_count = 0;
     $col = 0;
     foreach($html->find('table[id=ListAttendanceSummary_table]') as $table) {
