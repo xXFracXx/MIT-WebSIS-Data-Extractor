@@ -45,9 +45,9 @@ function addStudentInfoToDB($id, $dob) {
 
 function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
-    //$old_info = downloadFromDB($id, $col);
+    $old_info = downloadFromDB($id, $col);
     $new_info[$db_sem] = $data;
-    //$data_final = array_merge($old_info, $new_info);
+    $final_info = array_merge($old_info, $new_info);
     $json = json_encode($new_info); //data_final
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
@@ -57,15 +57,15 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     }
 }
 
-// function downloadFromDB($id, $col) {
-//     $conn = pg_connection_string_from_database_url();
-//     $pg_conn = pg_connect($conn);
-//     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-//     if(pg_num_rows($result)) {
-//         $data = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
-//     }
-//     $data_decoded = json_decode($data)
-//     $info[$col] = $data_decoded;
-//     return $info;
-// }
+function downloadFromDB($id, $col) {
+    $conn = pg_connection_string_from_database_url();
+    $pg_conn = pg_connect($conn);
+    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    if(pg_num_rows($result)) {
+        $data = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
+    }
+    $data_decoded = json_decode($data)
+    $info = $data_decoded;
+    return $info;
+}
 ?>
