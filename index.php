@@ -74,6 +74,8 @@ if(checkLogin($data_html) == FALSE) {
     $data_page = grab_page($final_link);
     $data_html = str_get_html($data_page);
 
+    echo $data_html;
+
     if($routes[3] == "semester") {
         if($routes[5] == "attendance") {
             $data = get_attendance_data($data_html);
