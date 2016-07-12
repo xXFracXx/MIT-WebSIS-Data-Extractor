@@ -74,8 +74,7 @@ if(checkLogin($data_html) == FALSE) {
         if($routes[5] == "attendance") {
             $data = get_attendance_data($requested_sem, $links);
             dispData($data);
-            pushToDB()
-
+            exit();
         }
     }
     // if($routes[3] == "marks") {
