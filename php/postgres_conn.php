@@ -50,6 +50,7 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     var_dump($old_info);echo nl2br("\n\n\n");
     var_dump($new_info);echo nl2br("\n\n\n");
     $final_info = array_merge($old_info, $new_info);
+    var_dump($final_info);
     $final_info[$db_sem]["timestamp"] = date("Y/m/d h:i:sa");
     $json = json_encode($final_info);
     $conn = pg_connection_string_from_database_url();
