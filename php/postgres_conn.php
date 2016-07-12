@@ -47,6 +47,7 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
     $old_info = downloadFromDB($id, $col);
     $new_info[$db_sem] = $data;
+    var_dump($new_info); echo nl2br("\n\n\n");
     $final_info = array_merge($old_info, $new_info);
     $json = json_encode($new_info); //data_final
     $conn = pg_connection_string_from_database_url();
@@ -65,9 +66,9 @@ function downloadFromDB($id, $col) {
         $result2 = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
     }
     $data_temp = pg_fetch_row($result2);
-    var_dump($data_temp);
+    var_dump($data_temp); echo nl2br("\n\n\n");
     $data = json_decode($data_temp[0]);
-    var_dump($data);
+    var_dump($data); echo nl2br("\n\n\n");
     return $data;
 }
 ?>
