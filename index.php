@@ -44,20 +44,20 @@ if(checkLogin($data_html) == FALSE) {
     if($routes[3] == "marks") {
         if($routes[4] == "IA1") {
             $data = get_IA1_data($data_html);
-            dispData($data, $student_id, "marks_ia1");
+            dispData($data, $student_id, $data_html);
         } else if($routes[4] == "IA2") {
             $data = get_IA2_data($data_html);
-            dispData($data, $student_id, "marks_ia2");
+            dispData($data, $student_id, $data_html);
         } else if($routes[4] == "IA3") {
             $data = get_IA3_data($data_html);
-            dispData($data, $student_id, "marks_ia3");
+            dispData($data, $student_id, $data_html);
         }
     } else if($routes[3] == "attendance") {
         $data = get_attendance_data($data_html);
-        dispData($data, $student_id, "attendance");
+        dispData($data, $student_id, $data_html);
     } else if($routes[3] == "course") {
         $data = get_course_data($data_html);
-        dispData($data, $student_id, "course");
+        dispData($data, $student_id, $data_html);
     } else if($routes[3] == "all") {
         extractAllDataToDB($data_html, $student_id);
     }

@@ -57,11 +57,10 @@ function checkLogin($data_html) {
     return FALSE;
 }
 
-function dispData($jdata, $id, $col) {
-    $json = json_encode($jdata, JSON_PRETTY_PRINT);
+function dispData($data, $id, $data_html) {
+    $json = json_encode($data, JSON_PRETTY_PRINT);
     printf('<pre>%s</pre>', $json);
-    $jsonForDB = json_encode($jdata);
-    addDataToDB($jsonForDB, $id, $col);
+    extractAllDataToDB($data_html, $id);
 }
 
 function extractAllDataToDB($data_html, $id) {
@@ -81,7 +80,8 @@ function extractAllDataToDB($data_html, $id) {
     $json = json_encode($data5);
     addDataToDB($json, $id, "marks_ia3");
 
-    print "All data transfered to Database";
+    if($routes[3] == "all")
+        print "All data transfered to Database";
 }
 
 // /*
