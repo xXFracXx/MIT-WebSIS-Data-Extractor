@@ -46,9 +46,10 @@ function addStudentInfoToDB($id, $dob) {
 function uploadToDB($data, $id, $requested_sem, $col) {
     $db_sem = "Semester ".$requested_sem;
     $old_info = downloadFromDB($id, $col);
+    $new_info[$db_sem]['timestamp'] = date("Y/m/d h:i:sa");
     $new_info[$db_sem] = $data;
     $final_info = array_merge($old_info, $new_info);
-    $json = json_encode($final_info, JSON_PRETTY_PRINT); //data_final
+    $json = json_encode($final_info);
     printf('<pre>%s</pre>', $json);
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
