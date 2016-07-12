@@ -84,7 +84,7 @@ function findCurrentSem($student_yr, $current_date) {
     $temp = (int)substr($current_date[1], 2, 2);
     $x = $temp - $student_yr;
     echo $x; echo nl2br("\n\n\n");
-    if($current_date[2] > 6 && $current_date[3] > 3) {
+    if($current_date[2] > 7 && $current_date[3] > 3) {
         $y = 2;
     } else {
         $y = 1;

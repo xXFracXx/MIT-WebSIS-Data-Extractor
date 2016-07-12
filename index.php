@@ -58,7 +58,7 @@ if(checkLogin($data_html) == FALSE) {
     addStudentInfoToDB($student_id,$student_dob);
     $existing_info = grabExistingData($student_id);
 
-    echo $existing_info; echo nl2br("\n\n\n");
+    var_dump($existing_info); echo nl2br("\n\n\n");
 
     $student_yr = substr($student_id, 0, 2);
 
