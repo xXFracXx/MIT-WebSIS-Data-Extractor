@@ -66,7 +66,7 @@ function downloadFromDB($id, $col) {
     }
     $data = pg_fetch_all($result);
     $data_decoded = json_decode($data);
-    echo $data;
+    var_dump($data);
     return $data_decoded;
 }
 ?>
