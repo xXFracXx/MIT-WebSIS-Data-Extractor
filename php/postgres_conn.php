@@ -67,11 +67,10 @@ function downloadFromDB($id, $col, $db_sem) {
     }
     $data_temp = pg_fetch_row($result2);
     var_dump($data_temp); echo nl2br("\n\n\n");
-    $data = json_decode($data_temp[0]);
-    var_dump($data); echo nl2br("\n\n\n");
+    $data = json_decode($data_temp[0], True);
     $data_final = (array)$data;
     //$data_final[$db_sem] = (array)$data[$db_sem];
-    var_dump($data_final); echo nl2br("\n\n\n");
+    var_dump($data); echo nl2br("\n\n\n");
     return $data_final;
 }
 ?>
