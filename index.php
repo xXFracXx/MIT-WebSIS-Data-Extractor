@@ -3,13 +3,13 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
-$date = date('Y/m/d');
-$current_date = array();
-$current_date = explode('/', $date);
-foreach($date as $d) {
-    if(trim($d) != '')
-        array_push($current_date, $d);
-}
+$date = date('2016/07/12');
+// $current_date = array();
+// $current_date = explode('/', $date);
+// foreach($date as $d) {
+//     if(trim($d) != '')
+//         array_push($current_date, $d);
+// }
 
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
