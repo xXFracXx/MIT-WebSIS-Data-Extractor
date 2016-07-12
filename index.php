@@ -3,7 +3,8 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
-$date = date('2016/07/12');
+$date = date('Y/m/d');
+echo $date;
 // $current_date = array();
 // $current_date = explode('/', $date);
 // foreach($date as $d) {
