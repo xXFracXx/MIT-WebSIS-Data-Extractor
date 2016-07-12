@@ -119,7 +119,8 @@ function genLinks($student_yr, $latest_sem) {
     $sem = $latest_sem;
     while($sem > 0) {
         $month = ($sem%2 == 0 ? "MAY" : "NOV");
-        $year = $student_yr + ($sem/2);
+        $semBy2 = (int)($sem/2);
+        $year = $student_yr + $semBy2;
         $links[$sem] = $month."20".$year;
         $sem = $sem - 1;
     }
