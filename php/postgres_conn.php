@@ -43,27 +43,27 @@ function addStudentInfoToDB($id, $dob) {
     }
 }
 
-function uploadToDB($data, $id, $requested_sem, $col) {
-    $old_data = downloadFromDB($id, $col);
-    $data_final = array_merge($old_data, $data);
-    $json = json_encode($data_final);
-    $conn = pg_connection_string_from_database_url();
-    $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-    if(pg_num_rows($result)) {
-        pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
-    }
-}
-
-function downloadFromDB($id, $col) {
-    $conn = pg_connection_string_from_database_url();
-    $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-    if(pg_num_rows($result)) {
-        $data = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
-    }
-    $data_decoded = json_decode($data)
-    $info[$col] = $data_decoded;
-    return $info;
-}
+// function uploadToDB($data, $id, $requested_sem, $col) {
+//     $old_data = downloadFromDB($id, $col);
+//     $data_final = array_merge($old_data, $data);
+//     $json = json_encode($data_final);
+//     $conn = pg_connection_string_from_database_url();
+//     $pg_conn = pg_connect($conn);
+//     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+//     if(pg_num_rows($result)) {
+//         pg_query($pg_conn, "UPDATE student_info SET $col = '$json' WHERE roll_no = '$id'");
+//     }
+// }
+//
+// function downloadFromDB($id, $col) {
+//     $conn = pg_connection_string_from_database_url();
+//     $pg_conn = pg_connect($conn);
+//     $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+//     if(pg_num_rows($result)) {
+//         $data = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
+//     }
+//     $data_decoded = json_decode($data)
+//     $info[$col] = $data_decoded;
+//     return $info;
+// }
 ?>
