@@ -97,7 +97,7 @@ if(checkLogin($data_html) == FALSE) {
 
     if($is_new_user == FALSE){
         $sem_count = $latest_sem;
-        while($sem_count > 0) {
+        //while($sem_count > 0) {
             $link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$sem_count];
             $data_page = grab_page($link);
             $data_html = str_get_html($data_page);
@@ -107,8 +107,8 @@ if(checkLogin($data_html) == FALSE) {
             $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
             $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
             $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
-            $sem_count = $sem_count - 1;
-        }
+        //    $sem_count = $sem_count - 1;
+        //}
         $json = json_encode($info, JSON_PRETTY_PRINT);
         printf('<pre>%s</pre>', $json);
     }
