@@ -81,20 +81,20 @@ if(checkLogin($data_html) == FALSE) {
         } else if($routes[5] == "course") {
             $data = get_course_data($data_html);
             dispData($data);
-            //uploadToDB($data, $student_id, $requested_sem, "course");
+            uploadToDB($data, $student_id, $requested_sem, "course");
         } else if($routes[5] == "marks") {
             if($routes[6] == "IA1") {
                 $data = get_IA1_data($data_html);
                 dispData($data);
-                //uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
             } else if($routes[6] == "IA2") {
                 $data = get_IA2_data($data_html);
                 dispData($data);
-                //uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
             } else if($routes[6] == "IA3") {
                 $data = get_IA3_data($data_html);
                 dispData($data);
-                //uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
+                uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
             }
         }
     }
