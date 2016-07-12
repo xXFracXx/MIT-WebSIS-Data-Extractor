@@ -74,26 +74,26 @@ if(checkLogin($data_html) == FALSE) {
     $data_page = grab_page($request_link);
     $data_html = str_get_html($data_page);
 
-    if($routes[3] == "semester") {
-        if($routes[5] == "attendance") {
-            $data = get_attendance_data($data_html);
-            dispData($data);
-        } else if($routes[5] == "course") {
-            $data = get_course_data($data_html);
-            dispData($data);
-        } else if($routes[5] == "marks") {
-            if($routes[6] == "IA1") {
-                $data = get_IA1_data($data_html);
-                dispData($data);
-            } else if($routes[6] == "IA2") {
-                $data = get_IA2_data($data_html);
-                dispData($data);
-            } else if($routes[6] == "IA3") {
-                $data = get_IA3_data($data_html);
-                dispData($data);
-            }
-        }
-    }
+    // if($routes[3] == "semester") {
+    //     if($routes[5] == "attendance") {
+    //         $data = get_attendance_data($data_html);
+    //         dispData($data);
+    //     } else if($routes[5] == "course") {
+    //         $data = get_course_data($data_html);
+    //         dispData($data);
+    //     } else if($routes[5] == "marks") {
+    //         if($routes[6] == "IA1") {
+    //             $data = get_IA1_data($data_html);
+    //             dispData($data);
+    //         } else if($routes[6] == "IA2") {
+    //             $data = get_IA2_data($data_html);
+    //             dispData($data);
+    //         } else if($routes[6] == "IA3") {
+    //             $data = get_IA3_data($data_html);
+    //             dispData($data);
+    //         }
+    //     }
+    // }
 
     if($is_new_user == FALSE){
         $sem_count = $latest_sem;
@@ -107,8 +107,9 @@ if(checkLogin($data_html) == FALSE) {
             $info["marks_ia1"][$sem_string] =  get_IA1_data($data_html);
             $info["marks_ia2"][$sem_string] =  get_IA2_data($data_html);
             $info["marks_ia3"][$sem_string] =  get_IA3_data($data_html);
-        //    $sem_count = $sem_count - 1;
-            var_dump($info);
+        //  $sem_count = $sem_count - 1;
+            $json = json_encode($info, JSON_PRETTY_PRINT);
+            printf('<pre>%s</pre>', $json);
         //}
     }
 }
