@@ -76,7 +76,7 @@ if(checkLogin($data_html) == FALSE) {
     if($routes[3] == "semester") {
         if($routes[5] == "attendance") {
             $data = get_attendance_data($data_html);
-            dispData($data);
+            //dispData($data);
             uploadToDB($data, $student_id, $requested_sem, "attendance");
         } else if($routes[5] == "course") {
             $data = get_course_data($data_html);

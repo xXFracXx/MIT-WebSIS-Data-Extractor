@@ -65,7 +65,7 @@ function downloadFromDB($id, $col) {
         $data = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
     }
     $data_decoded = json_decode($data);
-    $info = $data_decoded;
-    return $info;
+    echo $data_decoded;
+    return $data_decoded;
 }
 ?>
