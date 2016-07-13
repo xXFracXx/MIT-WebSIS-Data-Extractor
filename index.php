@@ -52,8 +52,8 @@ if($test_code == "testAfterLogin") {
 }
 
 if(checkLogin($data_html) == FALSE) {
-    print "Invalid Credentials";
-    echo "<h2>$student_id</h2><br/><h2>$student_dob</h2>";
+    echo "Invalid Credentials";
+    echo $student_id." ".$student_dob;
     exit();
 } else {
     $is_new_user = addStudentInfoToDB($student_id,$student_dob);
@@ -107,12 +107,10 @@ if(checkLogin($data_html) == FALSE) {
     if($is_new_user == TRUE){
 
     }
-
-    if($test_code == "varDump") {
-        echo nl2br("\n\n\n");
-        echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
-        exit();
-    }
 }
-exit();
+
+if($test_code == "varDump") {
+    echo nl2br("\n\n\n");
+    echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
+}
 ?>
