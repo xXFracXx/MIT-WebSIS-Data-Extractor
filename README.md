@@ -13,12 +13,12 @@ A PHP and cURL based data extraction module for our online SIS portal @ MIT.
 Documentation
 ------
 
-Valid Links (http://websis.herokuapp.com/ ... ):
+####Valid Links (http://websis.herokuapp.com/ ... ):
 - semester/\<requested\_sem\>/\<requested\_data\>
   - \<requested\_sem\> → ( 1 to 8 ) | 'latest' 
   - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3'
 
-Valid HTTP Headers:
+####Valid HTTP Headers:
 - username → Student ID [ 14XXXXXXX ]
 - password → Student Date of Birth [ YYYY-MM-DD ]
 - testcode → test | postgresTest | testAfterLogin | varDump
@@ -27,7 +27,7 @@ Valid HTTP Headers:
   - testAfterLogin: Executes test code after login into webSIS
   - varDump: Dumps all variables after data retrival from webSIS
 
-Data Format:
+####Data Format:
 ```jSON
 {
   "Semester 4": {
