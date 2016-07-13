@@ -109,8 +109,8 @@ if(checkLogin($data_html) == FALSE) {
     }
 
     if($test_code == "varDump") {
-        $all_vars = get_defined_vars();
-        var_dump($all_vars);
+        echo get_defined_vars();
+        //var_dump($all_vars);
         exit();
     }
 }
