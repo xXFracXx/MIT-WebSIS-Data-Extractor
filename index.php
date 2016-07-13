@@ -17,19 +17,20 @@ foreach($routes as $route) {
         array_push($routes, $route);
 }
 
-if($routes[1] == "test") {
+$test_code = $_SERVER['HTTP_TESTCODE'];
+
+if($test_code == "test") {
     //test stuff
     exit();
 }
 
-if($routes[1] == "postgresTest") {
+if($test_code == "postgresTest") {
     test_pg_conn();
     exit();
 }
 
-// $student_id = $routes[1];
-// $student_dob = $routes[2];
-
+//$student_id = $routes[1];
+//$student_dob = $routes[2];
 $student_id = $_SERVER['HTTP_USERNAME'];
 $student_dob = $_SERVER['HTTP_PASSWORD'];
 
@@ -45,7 +46,7 @@ $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicP
 $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
-if($routes[1] == "testAfterLogin") {
+if($test_code == "testAfterLogin") {
     //test stuff
     exit();
 }
@@ -105,6 +106,12 @@ if(checkLogin($data_html) == FALSE) {
 
     if($is_new_user == TRUE){
 
+    }
+
+    if($test_code == "varDump") {
+        $all_vars = get_defined_vars();
+        var_dump($all_vars);
+        exit();
     }
 }
 exit();
