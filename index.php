@@ -99,12 +99,18 @@ if(checkLogin($data_html) == FALSE) {
                     uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
                 }
             } else if($routes[3] == "GCG") {
-                //$GCGLinks = genGCGLinks($data_html);
+                $GCGLinks = genGCGLinks($data_html, $latest_sem);
+
+                $request_link = "http://websismit.manipal.edu/".$GCGLinks[$requested_sem];
+                $data_page = grab_page($request_link);
+                $data_html = str_get_html($data_page);
+
+                echo $data_html;
+
+                //$data = get_GCG_data($data_html);
             }
         }
     }
-
-    genGCGLinks($data_html, $latest_sem);
 
     if($is_new_user == TRUE){
 

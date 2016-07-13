@@ -218,13 +218,62 @@ function genGCGLinks($html, $latest_sem){
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('a') as $cell) {
-                $link = $cell->href;
+                $link = str_replace("&amp;", "&", $cell->href);
                 $links[$sem] = $link;
                 $sem = $sem - 1;
             }
         }
     }
-    var_dump($links);
+    return $links;
+}
+
+function get_GCG_data($html) {
+    $row_count = 0;
+    $col = 0;
+    foreach($html->find('table[id=ListAttendanceSummary_table]') as $table) {
+        foreach($table->find('tr') as $row) {
+            $a_data[$row_count]['id'] = $row_count;
+            foreach($row->find('td') as $cell) {
+                $cell_text_temp = $cell->plaintext;
+                $cell_text = trim($cell_text_temp);
+                switch ($col) {
+                    case 0:
+                        $a_data[$row_count]['course_code'] = $cell_text;
+                        $col++;
+                        break;
+                    case 1:
+                        $a_data[$row_count]['name'] = $cell_text;
+                        $col++;
+                        break;
+                    case 2:
+                        $a_data[$row_count]['classes'] = $cell_text;
+                        $col++;
+                        break;
+                    case 3:
+                        $a_data[$row_count]['attended'] = $cell_text;
+                        $col++;
+                        break;
+                    case 4:
+                        $a_data[$row_count]['absent'] = $cell_text;
+                        $col++;
+                        break;
+                    case 5:
+                        $a_data[$row_count]['percentage'] = $cell_text;
+                        $col++;
+                        break;
+                    case 6:
+                        $temp_cell_text = str_replace('/', '-', $cell_text);
+                        $a_data[$row_count]['updated'] = $temp_cell_text;
+                        $col++;
+                        break;
+                }
+            }
+            $col = 0;
+            $row_count++;
+        }
+    }
+    //array_splice($a_data, 0, 1);
+    return $a_data;
 }
 
 ?>
