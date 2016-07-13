@@ -59,7 +59,7 @@ function checkLogin($data_html) {
 
 function dispData($data) {
     $json = json_encode($data, JSON_PRETTY_PRINT);
-    printf('<pre>%s</pre>', $json);
+    printf('%s', $json);
 }
 
 function findCurrentSem($student_yr, $current_date) {
