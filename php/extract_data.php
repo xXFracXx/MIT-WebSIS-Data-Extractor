@@ -283,9 +283,9 @@ function get_gp_data($html, $requested_sem, $latest_sem) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text = trim($cell_text_temp);
                 if(is_numeric($cell_text)) {
-                    $cgpas[$sem] = $link;
+                    $cgpas[$sem] = $cell_text;
+                    $sem = $sem - 1;
                 }
-                $sem = $sem - 1;
             }
         }
     }
