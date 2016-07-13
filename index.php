@@ -80,6 +80,7 @@ if(checkLogin($data_html) == FALSE) {
                 $data = get_attendance_data($data_html);
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, "attendance");
+                genGCGLinks($data_html);
             } else if($routes[3] == "course") {
                 $data = get_course_data($data_html);
                 dispData($data);
@@ -108,8 +109,6 @@ if(checkLogin($data_html) == FALSE) {
     if($is_new_user == TRUE){
 
     }
-
-    genGCGLinks($data_html);
 
     //Removes the page & html data variables, MUST ALWAYS BE AT THE END ...
     unset($data_page, $data_html);
