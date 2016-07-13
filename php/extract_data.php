@@ -276,7 +276,6 @@ function get_gc_data($html) {
 
 function get_gp_data($html, $requested_sem, $latest_sem) {
     $sem = $latest_sem;
-    $sem_array_id = $latest_sem - $requested_sem;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('td') as $cell) {
@@ -290,8 +289,7 @@ function get_gp_data($html, $requested_sem, $latest_sem) {
         }
     }
 
-    var_dump($cgpas);
-    //return $links;
+    return $cgpas[$requested_sem];
 }
 
 ?>

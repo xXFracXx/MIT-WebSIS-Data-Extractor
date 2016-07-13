@@ -108,8 +108,14 @@ if(checkLogin($data_html) == FALSE) {
                 $gr_data = get_gc_data($data_html);
                 $cr_data = $gr_data["total_credits"];
                 unset($g_data["total_credits"]);
-                get_gp_data($data_html, $requested_sem, $latest_sem);
+                $gp_data = get_gp_data($data_html, $requested_sem, $latest_sem);
 
+                $data["grades"] = $gr_data;
+                $data["total_credits"] = $cr_data;
+                $data["gpa_accquired"] = $gp_data;
+
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "gcg");
             }
         }
     }
