@@ -105,13 +105,13 @@ if(checkLogin($data_html) == FALSE) {
     if($is_new_user == TRUE){
 
     }
+
+    //Removes the page & html data variables, MUST ALWAYS BE AT THE END ... 
+    unset($data_page, $data_html);
 }
 
 if($test_code == "varDump") {
-    echo nl2br("\n\n\n");
-    foreach(get_defined_vars() as $temp) {
-       echo $temp;
-
-    }
+    echo nl2br("\n\n");
+    var_dump(get_defined_vars());
 }
 ?>
