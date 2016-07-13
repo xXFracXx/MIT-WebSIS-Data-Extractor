@@ -54,7 +54,6 @@ if($test_code == "testAfterLogin") {
 if(checkLogin($data_html) == FALSE) {
     echo "Invalid Credentials";
     echo $student_id." ".$student_dob;
-    exit();
 } else {
     $is_new_user = addStudentInfoToDB($student_id,$student_dob);
 
@@ -69,37 +68,36 @@ if(checkLogin($data_html) == FALSE) {
 
     if($requested_sem > $latest_sem || $requested_sem < 0) {
         echo "Invalid semester request!";
-        exit();
-    }
+    } else {
+        $links = genLinks($student_yr, $latest_sem);
 
-    $links = genLinks($student_yr, $latest_sem);
+        $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+        $data_page = grab_page($request_link);
+        $data_html = str_get_html($data_page);
 
-    $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
-    $data_page = grab_page($request_link);
-    $data_html = str_get_html($data_page);
-
-    if($routes[1] == "semester") {
-        if($routes[3] == "attendance") {
-            $data = get_attendance_data($data_html);
-            dispData($data);
-            uploadToDB($data, $student_id, $requested_sem, "attendance");
-        } else if($routes[3] == "course") {
-            $data = get_course_data($data_html);
-            dispData($data);
-            uploadToDB($data, $student_id, $requested_sem, "course");
-        } else if($routes[3] == "marks") {
-            if($routes[4] == "IA1") {
-                $data = get_IA1_data($data_html);
+        if($routes[1] == "semester") {
+            if($routes[3] == "attendance") {
+                $data = get_attendance_data($data_html);
                 dispData($data);
-                uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
-            } else if($routes[4] == "IA2") {
-                $data = get_IA2_data($data_html);
+                uploadToDB($data, $student_id, $requested_sem, "attendance");
+            } else if($routes[3] == "course") {
+                $data = get_course_data($data_html);
                 dispData($data);
-                uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
-            } else if($routes[4] == "IA3") {
-                $data = get_IA3_data($data_html);
-                dispData($data);
-                uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
+                uploadToDB($data, $student_id, $requested_sem, "course");
+            } else if($routes[3] == "marks") {
+                if($routes[4] == "IA1") {
+                    $data = get_IA1_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
+                } else if($routes[4] == "IA2") {
+                    $data = get_IA2_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
+                } else if($routes[4] == "IA3") {
+                    $data = get_IA3_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
+                }
             }
         }
     }
@@ -111,6 +109,6 @@ if(checkLogin($data_html) == FALSE) {
 
 if($test_code == "varDump") {
     echo nl2br("\n\n\n");
-    echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
+    echo "hi";
 }
 ?>
