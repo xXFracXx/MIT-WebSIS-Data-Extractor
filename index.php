@@ -109,7 +109,8 @@ if(checkLogin($data_html) == FALSE) {
     }
 
     if($test_code == "varDump") {
-        var_dump(get_defined_vars());
+        echo nl2br("\n\n\n");
+        echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
         exit();
     }
 }
