@@ -282,18 +282,15 @@ function get_gp_data($html, $requested_sem, $latest_sem) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text = trim($cell_text_temp);
-                preg_match_all('!\d+\.*\d*!', $cell_text ,$cgpa);
-
-                var_dump($cell_text);
-                echo nl2br("\n");
-                var_dump("$cgpa");
-                echo nl2br("\n\n\n");
-
-                // $cgpas[$sem] = $link;
+                if(is_numeric($cell_text)) {
+                    $cgpas[$sem] = $link;
+                }
                 $sem = $sem - 1;
             }
         }
     }
+
+    var_dump($cgpas);
     //return $links;
 }
 
