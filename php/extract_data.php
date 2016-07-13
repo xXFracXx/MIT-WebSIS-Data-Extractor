@@ -274,4 +274,27 @@ function get_gc_data($html) {
     return $gc_data;
 }
 
+function get_gp_data($html, $requested_sem, $latest_sem) {
+    $sem = $latest_sem;
+    $sem_array_id = $latest_sem - $requested_sem;
+    foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
+        foreach($table->find('tr') as $row) {
+            foreach($row->find('td') as $cell) {
+                $cell_text_temp = $cell->plaintext;
+                $cell_text = trim($cell_text_temp);
+                preg_match_all('!\d+\.*\d*!', $cell_text ,$cgpa);
+
+                var_dump($cell_text);
+                echo nl2br("\n");
+                var_dump("$cgpa");
+                echo nl2br("\n\n\n");
+
+                // $cgpas[$sem] = $link;
+                $sem = $sem - 1;
+            }
+        }
+    }
+    //return $links;
+}
+
 ?>
