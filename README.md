@@ -32,32 +32,32 @@ Documentation
 
 \* → Required
 
-####Data Format:
+####Data Base jSON Format:
 ```jSON
 {
   "Semester 4": {
-    "attendance": [
+    "<requested_data>": [
       
     ],
-    "lastUpdated": "2016/07/13 11:59:27 am",
+    "lastUpdated": time_stamp,
   },
   "Semester 3": {
-    "attendance": [
+    "<requested_data>": [
      
     ],
-    "lastUpdated": "2016/07/13 10:20:50 am"
+    "lastUpdated": time_stamp,
   },
   "Semester 2": {
-    "attendance": [
+    "<requested_data>": [
       
     ],
-    "lastUpdated": "2016/07/13 10:21:08 am"
+    "lastUpdated": time_stamp,
   },
   "Semester 1": {
-    "attendance": [
+    "<requested_data>": [
       
     ],
-    "lastUpdated": "2016/07/13 10:21:23 am"
+    "lastUpdated": time_stamp
   }
 }
 ```
