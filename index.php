@@ -71,47 +71,45 @@ if(checkLogin($data_html) == FALSE) {
     } else {
         $Semlinks = genSemLinks($student_yr, $latest_sem);
 
-        $request_link = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile?admissionId=24928&productCategoryId=0905-TERM-4";
+        $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
         $data_page = grab_page($request_link);
         $data_html = str_get_html($data_page);
 
-        echo $data_html;
+        if($routes[1] == "semester") {
+            if($routes[3] == "attendance") {
+                $data = get_attendance_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "attendance");
+            } else if($routes[3] == "course") {
+                $data = get_course_data($data_html);
+                dispData($data);
+                uploadToDB($data, $student_id, $requested_sem, "course");
+            } else if($routes[3] == "marks") {
+                if($routes[4] == "IA1") {
+                    $data = get_IA1_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
+                } else if($routes[4] == "IA2") {
+                    $data = get_IA2_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
+                } else if($routes[4] == "IA3") {
+                    $data = get_IA3_data($data_html);
+                    dispData($data);
+                    uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
+                }
+            } else if($routes[3] == "GCG") {
+                $GCGLinks = genGCGLinks($data_html, $latest_sem);
 
-        // if($routes[1] == "semester") {
-        //     if($routes[3] == "attendance") {
-        //         $data = get_attendance_data($data_html);
-        //         dispData($data);
-        //         uploadToDB($data, $student_id, $requested_sem, "attendance");
-        //     } else if($routes[3] == "course") {
-        //         $data = get_course_data($data_html);
-        //         dispData($data);
-        //         uploadToDB($data, $student_id, $requested_sem, "course");
-        //     } else if($routes[3] == "marks") {
-        //         if($routes[4] == "IA1") {
-        //             $data = get_IA1_data($data_html);
-        //             dispData($data);
-        //             uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
-        //         } else if($routes[4] == "IA2") {
-        //             $data = get_IA2_data($data_html);
-        //             dispData($data);
-        //             uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
-        //         } else if($routes[4] == "IA3") {
-        //             $data = get_IA3_data($data_html);
-        //             dispData($data);
-        //             uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
-        //         }
-        //     } else if($routes[3] == "GCG") {
-        //         $GCGLinks = genGCGLinks($data_html, $latest_sem);
-        //
-        //         $request_link = "http://websismit.manipal.edu/".$GCGLinks[$requested_sem];
-        //         $data_page = grab_page($request_link);
-        //         $data_html = str_get_html($data_page);
-        //
-        //         echo $data_html;
-        //
-        //         //$data = get_GCG_data($data_html);
-        //     }
-        //}
+                $request_link = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile?admissionId=24928&productCategoryId=0905-TERM-4";
+                $data_page = grab_page($request_link);
+                $data_html = str_get_html($data_page);
+
+                echo $data_html;
+
+                //$data = get_GCG_data($data_html);
+            }
+        }
     }
 
     if($is_new_user == TRUE){
