@@ -109,6 +109,6 @@ if(checkLogin($data_html) == FALSE) {
 
 if($test_code == "varDump") {
     echo nl2br("\n\n\n");
-    echo "hi";
+    var_dump(get_defined_vars());
 }
 ?>
