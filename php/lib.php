@@ -95,7 +95,7 @@ function findCurrentSem($student_yr, $current_date) {
     }
 }
 
-function genLinks($student_yr, $latest_sem) {
+function genSemLinks($student_yr, $latest_sem) {
     $sem = $latest_sem;
     while($sem > 0) {
         $month = ($sem%2 == 0 ? "MAY" : "NOV");

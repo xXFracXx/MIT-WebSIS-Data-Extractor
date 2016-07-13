@@ -69,9 +69,9 @@ if(checkLogin($data_html) == FALSE) {
     if($requested_sem > $latest_sem || $requested_sem < 0) {
         echo "Invalid semester request!";
     } else {
-        $links = genLinks($student_yr, $latest_sem);
+        $Semlinks = genSemLinks($student_yr, $latest_sem);
 
-        $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$links[$requested_sem];
+        $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
         $data_page = grab_page($request_link);
         $data_html = str_get_html($data_page);
 
@@ -98,15 +98,20 @@ if(checkLogin($data_html) == FALSE) {
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
                 }
+            } else if($routes[3] == "GCG") {
+                //$GCGLinks = genGCGLinks($data_html);
             }
         }
+
     }
 
     if($is_new_user == TRUE){
 
     }
 
-    //Removes the page & html data variables, MUST ALWAYS BE AT THE END ... 
+    genGCGLinks($data_html);
+
+    //Removes the page & html data variables, MUST ALWAYS BE AT THE END ...
     unset($data_page, $data_html);
 }
 

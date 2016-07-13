@@ -213,4 +213,16 @@ function get_IA3_data($html) {
     return $IA3_data;
 }
 
+function genGCGLinks($html){
+    $row_count = 0;
+    foreach($html->find('table[ProgramAdmissionItemSummary_table]') as $table) {
+        foreach($table->find('tr') as $row) {
+            foreach($row->find('a') as $cell) {
+                echo $cell;
+            }
+            $row_count++;
+        }
+    }
+}
+
 ?>
