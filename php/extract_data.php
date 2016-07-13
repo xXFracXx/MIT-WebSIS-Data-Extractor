@@ -217,8 +217,8 @@ function genGCGLinks($html){
     $row_count = 0;
     foreach($html->find('table[ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
-            foreach($row->find('a') as $cell) {
-                echo $cell;
+            foreach($row->find('td') as $cell) {
+                echo $cell->plaintext;;
             }
             $row_count++;
         }
