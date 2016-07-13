@@ -12,7 +12,6 @@ $current_date[3] = substr($date, 8, 2);
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
-var_dump($routes);
 // foreach($routes as $route) {
 //     if(trim($route) != '')
 //         array_push($routes, $route);
@@ -99,7 +98,7 @@ if(checkLogin($data_html) == FALSE) {
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
                 }
-            } else if($routes[3] == "GCG") {
+            } else if($routes[3] == "gcg") {
                 $GCGLinks = genGCGLinks($data_html, $latest_sem);
 
                 $request_link = "http://websismit.manipal.edu".$GCGLinks[$requested_sem];
