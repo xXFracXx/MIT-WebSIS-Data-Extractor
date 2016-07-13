@@ -8,7 +8,7 @@ function get_course_data($html){
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
-                $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                 switch ($col) {
                     case 0:
                         $c_data[$row_count]['course_code'] = $cell_text;
@@ -57,7 +57,7 @@ function get_attendance_data($html) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
-                $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                 switch ($col) {
                     case 0:
                         $a_data[$row_count]['course_code'] = $cell_text;
@@ -111,7 +111,7 @@ function get_IA1_data($html) {
                         foreach($row->find('td') as $cell) {
                             $cell_text_temp = $cell->plaintext;
                             $cell_text_temp2 = trim($cell_text_temp);
-                            $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                            $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                             switch ($col) {
                                 case 0:
                                     $IA1_data[$row_count]['course_code'] = $cell_text;
@@ -151,7 +151,7 @@ function get_IA2_data($html) {
                         foreach($row->find('td') as $cell) {
                             $cell_text_temp = $cell->plaintext;
                             $cell_text_temp2 = trim($cell_text_temp);
-                            $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                            $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                             switch ($col) {
                                 case 0:
                                     $IA2_data[$row_count]['course_code'] = $cell_text;
@@ -191,7 +191,7 @@ function get_IA3_data($html) {
                         foreach($row->find('td') as $cell) {
                             $cell_text_temp = $cell->plaintext;
                             $cell_text_temp2 = trim($cell_text_temp);
-                            $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                            $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                             switch ($col) {
                                 case 0:
                                     $IA3_data[$row_count]['course_code'] = $cell_text;
@@ -242,7 +242,7 @@ function get_gc_data($html) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
-                $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                 switch ($col) {
                     case 0:
                         $gc_data[$row_count]['course_code'] = $cell_text;
@@ -287,7 +287,7 @@ function get_gp_data($html, $requested_sem, $latest_sem) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
-                $cell_text = str_replace('$nbsp;', '', $cell_text_temp2);
+                $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
                 if(is_numeric($cell_text)) {
                     $cgpas[$sem] = $cell_text;
                     $sem = $sem - 1;
