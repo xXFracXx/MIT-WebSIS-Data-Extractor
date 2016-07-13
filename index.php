@@ -101,15 +101,11 @@ if(checkLogin($data_html) == FALSE) {
             } else if($routes[3] == "GCG") {
                 $GCGLinks = genGCGLinks($data_html, $latest_sem);
 
-                echo $GCGLinks[$requested_sem];
-
-                $request_link = "http://websismit.manipal.edu/".$GCGLinks[$requested_sem];
+                $request_link = "http://websismit.manipal.edu".$GCGLinks[$requested_sem];
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
 
-                echo $data_html;
-
-                //$data = get_GCG_data($data_html);
+                get_GCG_data($data_html, $requested_sem);
             }
         }
     }
