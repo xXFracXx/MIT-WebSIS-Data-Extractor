@@ -7,6 +7,9 @@ A PHP and cURL based data extraction module for our online SIS portal @ MIT.
 - [x] Course Details
 - [x] Attendance
 - [x] Internal Assessments (1, 2 & 3)
+- [x] Grades
+- [x] Total Credits per Sem
+- [x] GPA Acquired per Sem
 - [ ] Do something useful with jSON responses 
 
 ---
@@ -16,7 +19,7 @@ Documentation
 ####Valid Links (http://websis.herokuapp.com/ ... ):
 - semester/\<requested\_sem\>/\<requested\_data\>
   - \<requested\_sem\> → ( 1 to 8 ) | 'latest' 
-  - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3'
+  - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3' | gcg
 
 ####Valid HTTP Headers:
 - username* → Student ID [ 14XXXXXXX ]
