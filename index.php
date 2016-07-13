@@ -111,7 +111,7 @@ if(checkLogin($data_html) == FALSE) {
         //
         //         //$data = get_GCG_data($data_html);
         //     }
-        }
+        //}
     }
 
     if($is_new_user == TRUE){
