@@ -18,14 +18,14 @@ function test_pg_conn() {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
     $result = pg_query($pg_conn, "SELECT roll_no, date_of_birth FROM student_info");
-    print "<pre>\n";
+    //print "<pre>\n";
     if (!pg_num_rows($result)) {
       print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
     } else {
       print("Data in student_info:\n");
       while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
     }
-    print "\n</pre>";
+    //print "\n</pre>";
 }
 
 function addStudentInfoToDB($id, $dob) {
