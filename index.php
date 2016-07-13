@@ -101,7 +101,9 @@ if(checkLogin($data_html) == FALSE) {
             } else if($routes[3] == "GCG") {
                 $GCGLinks = genGCGLinks($data_html, $latest_sem);
 
-                $request_link = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile?admissionId=24928&productCategoryId=0905-TERM-4";
+                echo $GCGLinks[$requested_sem];
+
+                $request_link = "http://websismit.manipal.edu/".$GCGLinks[$requested_sem];
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
 
