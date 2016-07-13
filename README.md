@@ -39,25 +39,25 @@ Documentation
     "<requested_data>": [
       
     ],
-    "lastUpdated": time_stamp,
+    "lastUpdated": "time_stamp",
   },
   "Semester 3": {
     "<requested_data>": [
      
     ],
-    "lastUpdated": time_stamp,
+    "lastUpdated": "time_stamp",
   },
   "Semester 2": {
     "<requested_data>": [
       
     ],
-    "lastUpdated": time_stamp,
+    "lastUpdated": "time_stamp",
   },
   "Semester 1": {
     "<requested_data>": [
       
     ],
-    "lastUpdated": time_stamp
+    "lastUpdated": "time_stamp"
   }
 }
 ```
