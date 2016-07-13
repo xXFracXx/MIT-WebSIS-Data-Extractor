@@ -19,13 +19,15 @@ Documentation
   - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3'
 
 ####Valid HTTP Headers:
-- username → Student ID [ 14XXXXXXX ]
-- password → Student Date of Birth [ YYYY-MM-DD ]
+- username* → Student ID [ 14XXXXXXX ]
+- password* → Student Date of Birth [ YYYY-MM-DD ]
 - testcode → test | postgresTest | testAfterLogin | varDump
   - test: Executes test code before anything else
   - postgresTest: Used to test Database connection, returns all IDs present in DB as test result
   - testAfterLogin: Executes test code after login into webSIS
   - varDump: Dumps all variables after data retrival from webSIS
+
+\* → Required
 
 ####Data Format:
 ```jSON
