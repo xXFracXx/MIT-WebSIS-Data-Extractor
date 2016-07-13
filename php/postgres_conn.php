@@ -48,7 +48,7 @@ function uploadToDB($data, $id, $requested_sem, $col) {
     $old_info = (array)downloadFromDB($id, $col);
     $new_info[$db_sem][$col] = $data;
     $final_info = array_merge($old_info, $new_info);
-    $final_info[$db_sem]["lastUpdated"] = date("Y/m/d h:i:sa");
+    $final_info[$db_sem]["lastUpdated"] = date("Y/m/d h:i:s a");
     $json = json_encode($final_info);
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
