@@ -213,17 +213,17 @@ function get_IA3_data($html) {
     return $IA3_data;
 }
 
-function genGCGLinks($html){
-    $row_count = 0;
+function genGCGLinks($html, $latest_sem){
+    $sem = $latest_sem;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('a') as $cell) {
-                echo $cell->href;
-                echo nl2br("\n\n");
+                $links[$sem] = $cell->href;
+                $sem = $sem - 1;
             }
-            $row_count++;
         }
     }
+    var_dump($links);
 }
 
 ?>

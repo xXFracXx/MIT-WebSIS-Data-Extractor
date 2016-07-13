@@ -104,7 +104,7 @@ if(checkLogin($data_html) == FALSE) {
         }
     }
 
-    genGCGLinks($data_html);
+    genGCGLinks($data_html, $latest_sem);
 
     if($is_new_user == TRUE){
 
