@@ -22,7 +22,7 @@ Documentation
   - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3' | gcg
 
 ####Valid HTTP Headers:
-- username* → Student ID [ 14XXXXXXX ]
+- username* → Student ID [ XXXXXXXXX ]
 - password* → Student Date of Birth [ YYYY-MM-DD ]
 - testcode → test | postgresTest | testAfterLogin | varDump
   - test: Executes test code before anything else
