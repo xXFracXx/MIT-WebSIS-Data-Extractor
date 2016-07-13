@@ -227,7 +227,7 @@ function genGCGLinks($html, $latest_sem){
     return $links;
 }
 
-function get_GCG_data($html) {
+function get_grades_data($html) {
     $row_count = 0;
     $col = 0;
     foreach($html->find('table[id=TermGradeBookSummary_table]') as $table) {
@@ -268,7 +268,7 @@ function get_GCG_data($html) {
         }
     }
     //array_splice($a_data, 0, 1);
-    var_dump($gcg_data);
+    return $gcg_data;
 }
 
 ?>

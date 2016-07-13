@@ -105,7 +105,9 @@ if(checkLogin($data_html) == FALSE) {
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
 
-                get_GCG_data($data_html, $requested_sem);
+                $g_data = get_grades_data($data_html, $requested_sem);
+                get_credits_data($g_data);
+                //$data["grades"] = $g_data;
             }
         }
     }
