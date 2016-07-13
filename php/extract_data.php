@@ -218,7 +218,8 @@ function genGCGLinks($html, $latest_sem){
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('a') as $cell) {
-                $links[$sem] = $cell->href;
+                $link = str_replace("&amp;", "", $cell->href);
+                $links[$sem] = $link;
                 $sem = $sem - 1;
             }
         }
