@@ -80,7 +80,6 @@ if(checkLogin($data_html) == FALSE) {
                 $data = get_attendance_data($data_html);
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, "attendance");
-                genGCGLinks($data_html);
             } else if($routes[3] == "course") {
                 $data = get_course_data($data_html);
                 dispData($data);
@@ -103,8 +102,9 @@ if(checkLogin($data_html) == FALSE) {
                 //$GCGLinks = genGCGLinks($data_html);
             }
         }
-
     }
+
+    genGCGLinks($data_html);
 
     if($is_new_user == TRUE){
 

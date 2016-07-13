@@ -216,9 +216,8 @@ function get_IA3_data($html) {
 function genGCGLinks($html){
     $row_count = 0;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
-        echo $table;
         foreach($table->find('tr') as $row) {
-            foreach($row->find('td') as $cell) {
+            foreach($row->find('a') as $cell) {
                 echo $cell->plaintext;
             }
             $row_count++;
