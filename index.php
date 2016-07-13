@@ -30,8 +30,13 @@ if($routes[1] == "postgresTest") {
 // $student_id = $routes[1];
 // $student_dob = $routes[2];
 
-$student_id = $_SERVER['HTTP_USERNAME'];
-$student_dob = $_SERVER['HTTP_PASSWORD'];
+$headers = getallheaders()
+
+// $student_id = $_SERVER['HTTP_USERNAME'];
+// $student_dob = $_SERVER['HTTP_PASSWORD'];
+
+$student_id = $headers['username'];
+$student_dob = $headers['password'];
 
 $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
@@ -53,6 +58,9 @@ if($routes[1] == "testAfterLogin") {
 if(checkLogin($data_html) == FALSE) {
     print "Invalid Credentials";
     echo "<h2>$student_id</h2><br/><h2>$student_dob</h2>";
+    foreach ($headers as $name => $value) {
+        echo "$name: $value\n";
+    }
     exit();
 } else {
     $is_new_user = addStudentInfoToDB($student_id,$student_dob);
