@@ -227,38 +227,40 @@ function genGCGLinks($html, $latest_sem){
     return $links;
 }
 
-function get_grades_data($html) {
+function get_gc_data($html) {
     $row_count = 0;
     $col = 0;
+    $total_credits = 0;
     foreach($html->find('table[id=TermGradeBookSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
-            $gcg_data[$row_count]['id'] = $row_count;
+            $gc_data[$row_count]['id'] = $row_count;
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text = trim($cell_text_temp);
                 switch ($col) {
                     case 0:
-                        $gcg_data[$row_count]['course_code'] = $cell_text;
+                        $gc_data[$row_count]['course_code'] = $cell_text;
                         $col++;
                         break;
                     case 1:
-                        $gcg_data[$row_count]['name'] = $cell_text;
+                        $gc_data[$row_count]['name'] = $cell_text;
                         $col++;
                         break;
                     case 2:
-                        $gcg_data[$row_count]['credits'] = $cell_text;
+                        $total_credits = $total_credits + $cell_text;
+                        $gc_data[$row_count]['credits'] = $cell_text;
                         $col++;
                         break;
                     case 3:
-                        $gcg_data[$row_count]['grade'] = $cell_text;
+                        $gc_data[$row_count]['grade'] = $cell_text;
                         $col++;
                         break;
                     case 4:
-                        $gcg_data[$row_count]['absent'] = $cell_text;
+                        $gc_data[$row_count]['absent'] = $cell_text;
                         $col++;
                         break;
                     case 5:
-                        $gcg_data[$row_count]['session'] = $cell_text;
+                        $gc_data[$row_count]['session'] = $cell_text;
                         $col++;
                         break;
                 }
@@ -268,7 +270,8 @@ function get_grades_data($html) {
         }
     }
     //array_splice($a_data, 0, 1);
-    return $gcg_data;
+    $gc_data["total_credits"] = $total_credits;
+    return $gc_data;
 }
 
 ?>

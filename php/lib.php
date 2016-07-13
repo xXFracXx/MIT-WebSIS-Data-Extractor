@@ -107,12 +107,6 @@ function genSemLinks($student_yr, $latest_sem) {
     return $links;
 }
 
-function get_credits_data($g_data) {
-    foreach($g_data[]["credits"] as $c) {
-        echo $c;
-    }
-}
-
 define('HDOM_TYPE_ELEMENT', 1);
 define('HDOM_TYPE_COMMENT', 2);
 define('HDOM_TYPE_TEXT',    3);

@@ -105,8 +105,12 @@ if(checkLogin($data_html) == FALSE) {
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
 
-                $g_data = get_grades_data($data_html);
-                get_credits_data($g_data);
+                $g_data = get_gc_data($data_html);
+                $cr_data = $g_data["total_credits"];
+                unset($g_data["total_credits"]);
+
+                var_dump($g_data);
+                var_dump($cr_data);
                 //$data["grades"] = $g_data;
             }
         }
