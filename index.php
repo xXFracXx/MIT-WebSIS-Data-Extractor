@@ -27,8 +27,11 @@ if($routes[1] == "postgresTest") {
     exit();
 }
 
-$student_id = $routes[1];
-$student_dob = $routes[2];
+// $student_id = $routes[1];
+// $student_dob = $routes[2];
+
+$student_id = $_SERVER['HTTP_USERNAME'];
+$student_dob = $_SERVER['HTTP_PASSWORD'];
 
 $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
@@ -42,7 +45,7 @@ $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicP
 $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
-if($routes[3] == "testAfterLogin") {
+if($routes[1] == "testAfterLogin") {
     //test stuff
     exit();
 }
@@ -56,10 +59,10 @@ if(checkLogin($data_html) == FALSE) {
     $student_yr = substr($student_id, 0, 2);
 
     $latest_sem = findCurrentSem($student_yr, $current_date);
-    if($routes[4] == "latest") {
+    if($routes[2] == "latest") {
         $requested_sem = $latest_sem;
     } else {
-        $requested_sem = $routes[4];
+        $requested_sem = $routes[2];
     }
 
     if($requested_sem > $latest_sem || $requested_sem < 0) {
@@ -73,25 +76,25 @@ if(checkLogin($data_html) == FALSE) {
     $data_page = grab_page($request_link);
     $data_html = str_get_html($data_page);
 
-    if($routes[3] == "semester") {
-        if($routes[5] == "attendance") {
+    if($routes[1] == "semester") {
+        if($routes[3] == "attendance") {
             $data = get_attendance_data($data_html);
             dispData($data);
             uploadToDB($data, $student_id, $requested_sem, "attendance");
-        } else if($routes[5] == "course") {
+        } else if($routes[3] == "course") {
             $data = get_course_data($data_html);
             dispData($data);
             uploadToDB($data, $student_id, $requested_sem, "course");
-        } else if($routes[5] == "marks") {
-            if($routes[6] == "IA1") {
+        } else if($routes[3] == "marks") {
+            if($routes[4] == "IA1") {
                 $data = get_IA1_data($data_html);
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, "marks_ia1");
-            } else if($routes[6] == "IA2") {
+            } else if($routes[4] == "IA2") {
                 $data = get_IA2_data($data_html);
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, "marks_ia2");
-            } else if($routes[6] == "IA3") {
+            } else if($routes[4] == "IA3") {
                 $data = get_IA3_data($data_html);
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, "marks_ia3");
