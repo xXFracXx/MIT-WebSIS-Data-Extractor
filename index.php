@@ -52,6 +52,7 @@ if($routes[1] == "testAfterLogin") {
 
 if(checkLogin($data_html) == FALSE) {
     print "Invalid Credentials";
+    echo "<h2>$student_id</h2><br/><h2>$student_dob</h2>";
     exit();
 } else {
     $is_new_user = addStudentInfoToDB($student_id,$student_dob);
