@@ -12,13 +12,10 @@ $current_date[3] = substr($date, 8, 2);
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
-echo "hi";
-var_dump($routes);
-foreach($routes as $route) {
-    if(trim($route) != '')
-        array_push($routes, $route);
-}
-var_dump($routes);
+// foreach($routes as $route) {
+//     if(trim($route) != '')
+//         array_push($routes, $route);
+// }
 
 $test_code = $_SERVER['HTTP_TESTCODE'];
 
