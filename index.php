@@ -60,7 +60,7 @@ if($routes[2] == "latest")
 else
     $requested_sem = $routes[2];
 
-if($should_update == FALSE) {
+if(($should_update == "no" || $should_update == "NO")) {
     if($routes[1] == "semester") {
         if($routes[3] == "attendance") {
             $all_data = downloadFromDB($id, "attendance");
