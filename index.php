@@ -21,7 +21,7 @@ $test_code = $_SERVER['HTTP_TESTCODE'];
 $should_update = $_SERVER['HTTP_SHOULDUPDATE'];
 
 if($test_code == "test") {
-    echo checkSiteStatus("http://websismit.manipal.edu");
+    //test stuff
     exit();
 }
 
@@ -60,7 +60,7 @@ if($routes[2] == "latest")
 else
     $requested_sem = $routes[2];
 
-if(($should_update == "no" || $should_update == "NO")) {
+if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
     if($routes[1] == "semester") {
         if($routes[3] == "attendance") {
             $all_data = (array)downloadFromDB($student_id, "attendance");

@@ -119,6 +119,14 @@ function checkSiteStatus($url)
     return $httpcode;
 }
 
+function isWebSISDown() {
+    $status = checkSiteStatus("http://websismit.manipal.edu");
+    $status_first_two_numbers = substr($status, 0, 2);
+    if($status_first_two_numbers == 50)
+        return TRUE;
+    return FALSE;
+}
+
 define('HDOM_TYPE_ELEMENT', 1);
 define('HDOM_TYPE_COMMENT', 2);
 define('HDOM_TYPE_TEXT',    3);
