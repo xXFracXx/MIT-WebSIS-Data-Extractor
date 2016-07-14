@@ -70,23 +70,23 @@ if(($should_update == "no" || $should_update == "NO")) {
         } else if($routes[3] == "course") {
             $all_data = downloadFromDB($id, "course");
             $db_sem = "Semester ".$requested_sem;
-            $data = $all_data[$db_sem];
+            $data = $all_data[$db_sem]["course"];
             dispData($data);
         } else if($routes[3] == "marks") {
             if($routes[4] == "IA1") {
                 $all_data = downloadFromDB($id, "marks_ia1");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem];
+                $data = $all_data[$db_sem]["marks_ia1"];
                 dispData($data);
             } else if($routes[4] == "IA2") {
                 $all_data = downloadFromDB($id, "marks_ia2");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem];
+                $data = $all_data[$db_sem]["marks_ia2"];
                 dispData($data);
             } else if($routes[4] == "IA3") {
                 $all_data = downloadFromDB($id, "marks_ia3");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem];
+                $data = $all_data[$db_sem]["marks_ia3"];
                 dispData($data);
             }
         } else if($routes[3] == "gcg") {
