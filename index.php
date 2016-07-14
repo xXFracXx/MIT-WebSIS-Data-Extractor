@@ -90,23 +90,10 @@ if(($should_update == "no" || $should_update == "NO")) {
                 dispData($data);
             }
         } else if($routes[3] == "gcg") {
-            $GCGLinks = genGCGLinks($data_html, $latest_sem);
-
-            $request_link = "http://websismit.manipal.edu".$GCGLinks[$requested_sem];
-            $data_page = grab_page($request_link);
-            $data_html = str_get_html($data_page);
-
-            $gr_data = get_gc_data($data_html);
-            $cr_data = $gr_data["total_credits"];
-            unset($gr_data["total_credits"]);
-            $gp_data = get_gp_data($data_html, $requested_sem, $latest_sem);
-
-            $data["grades"] = $gr_data;
-            $data["total_credits"] = $cr_data;
-            $data["gpa_acquired"] = $gp_data;
-
+            $all_data = downloadFromDB($id, "gcg");
+            $db_sem = "Semester ".$requested_sem;
+            $data = $all_data[$db_sem]["gcg"];
             dispData($data);
-            uploadToDB($data, $student_id, $requested_sem, "gcg");
         }
     }
 } else {
