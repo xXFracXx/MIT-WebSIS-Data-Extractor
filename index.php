@@ -82,6 +82,9 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                 $all_data = (array)downloadFromDB($student_id, "marks_ia2");
                 $db_sem = "Semester ".$requested_sem;
                 $data = $all_data[$db_sem]["marks_ia2"];
+                if($data == NULL) {
+                    $data = "{}";
+                }
                 dispData($data);
             } else if($routes[4] == "IA3") {
                 $all_data = (array)downloadFromDB($student_id, "marks_ia3");
