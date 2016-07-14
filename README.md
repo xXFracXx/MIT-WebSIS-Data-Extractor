@@ -69,6 +69,11 @@ Documentation
 }
 ```
 
+####Data Base Structure:
+roll\_no | data\_of\_birth | attendance | course | marks\_ia1 | marks\_ia2 | marks\_ia3 | gcg
+------------ | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+varchar(9) | varchar(10) | jSON | jSON | jSON | jSON | jSON | jSON 
+
 ####Timing(s) Observed:
 - Normal Response: 11000ms to 17000ms
 - Data Base Response (w/ shouldupdate = NO): 3000ms to 4000ms
