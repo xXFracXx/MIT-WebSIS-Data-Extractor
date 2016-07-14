@@ -21,7 +21,7 @@ $test_code = $_SERVER['HTTP_TESTCODE'];
 $should_update = $_SERVER['HTTP_SHOULDUPDATE'];
 
 if($test_code == "test") {
-    //test stuff
+    echo checkSiteStatus("http://websismit.manipal.edu");
     exit();
 }
 
