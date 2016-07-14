@@ -66,8 +66,10 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
             $all_data = (array)downloadFromDB($student_id, "attendance");
             $db_sem = "Semester ".$requested_sem;
             $data = $all_data[$db_sem]["attendance"];
-            if($data == NULL)
+            if($data == NULL) {
                 $data = json_decode ("{}");
+                header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+            }
             dispData($data);
         } else if($routes[3] == "course") {
             $all_data = (array)downloadFromDB($student_id, "course");
