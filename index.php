@@ -41,10 +41,17 @@ $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
 
 login($login_url, $post_cred);
 
-$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
-//$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
+// $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
+// //$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
+//
+// $data_page = grab_page($student_summary); //echo $page;
+// $data_html = str_get_html($data_page);
 
-$data_page = grab_page($student_summary); //echo $page;
+
+$Semlinks = genSemLinks($student_yr, $latest_sem);
+
+$request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
+$data_page = grab_page($request_link);
 $data_html = str_get_html($data_page);
 
 if($test_code == "testAfterLogin") {
@@ -106,12 +113,6 @@ if(($should_update == "no" || $should_update == "NO")) {
         if($requested_sem > $latest_sem || $requested_sem < 0) {
             echo "Invalid semester request!";
         } else {
-            $Semlinks = genSemLinks($student_yr, $latest_sem);
-
-            $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
-            $data_page = grab_page($request_link);
-            $data_html = str_get_html($data_page);
-
             if($routes[1] == "semester") {
                 if($routes[3] == "attendance") {
                     $data = get_attendance_data($data_html);
