@@ -30,7 +30,7 @@ Documentation
   - postgresTest: Used to test Database connection, returns all IDs present in DB as test result
   - testAfterLogin: Executes test code after login into webSIS
   - varDump: Dumps all variables after data retrival from webSIS
-- shouldupdate → on | ON
+- shouldupdate → ( on | ON )
   - Bypasses webSIS, returns jSON from the Data Base
 
 \* → Required
