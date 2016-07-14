@@ -35,6 +35,10 @@ Documentation
 
 \* → Required
 
+####Status Responses:
+- 200 Ok: jSON retrived and displayed
+- 204 No Content: jSON returned NULL
+
 ####Data Base jSON Format:
 ```jSON
 {
