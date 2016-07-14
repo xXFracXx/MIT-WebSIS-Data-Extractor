@@ -64,3 +64,7 @@ Documentation
   }
 }
 ```
+
+####Timing(s) Observed:
+- Normal Response: 11000ms to 14000ms
+- Data Base Response (w/ shouldupdate = NO): 3000ms to 4000ms
