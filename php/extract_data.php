@@ -282,16 +282,18 @@ function get_gc_data($html) {
 
 function get_gp_data($html, $requested_sem, $latest_sem) {
     $sem = $latest_sem;
+    $c = 1;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
                 $cell_text = str_replace('&nbsp;', '', $cell_text_temp2);
-                if(is_numeric($cell_text)) {
+                if($c%2 == 0) {
                     $cgpas[$sem] = $cell_text;
                     $sem = $sem - 1;
                 }
+                $c = $c + 1;
             }
         }
     }
