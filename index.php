@@ -66,6 +66,7 @@ if(($should_update == "no" || $should_update == "NO")) {
             $all_data = downloadFromDB($id, "attendance");
             $db_sem = "Semester ".$requested_sem;
             $data = $all_data[$db_sem];
+            var_dump($all_data);
             dispData($all_data);
         } else if($routes[3] == "course") {
             $all_data = downloadFromDB($id, "course");
