@@ -85,7 +85,7 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                 $data = $all_data[$db_sem]["marks_ia1"];
                 if($data == NULL) {
                     $data = json_decode ("{}");
-                    header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+                    //header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
                 }
                 dispData($data);
             } else if($routes[4] == "IA2") {
