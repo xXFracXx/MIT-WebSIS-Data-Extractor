@@ -280,7 +280,7 @@ function get_grades_data($html) {
     }
     //array_splice($a_data, 0, 1);
     $grades_data["total_credits"] = $total_credits;
-    return $gc_data;
+    return $grades_data;
 }
 
 function get_cg_data($html) {
