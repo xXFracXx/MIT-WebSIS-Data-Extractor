@@ -238,13 +238,13 @@ function genGCGLinks($html, $latest_sem){
     return $links;
 }
 
-function get_gc_data($html) {
+function get_grades_data($html) {
     $row_count = 0;
     $col = 0;
     $total_credits = 0;
     foreach($html->find('table[id=TermGradeBookSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
-            $gc_data[$row_count]['id'] = $row_count;
+            $grades_data[$row_count]['id'] = $row_count;
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
                 $cell_text_temp2 = trim($cell_text_temp);
@@ -252,24 +252,24 @@ function get_gc_data($html) {
                 $cell_text = html_entity_decode($cell_text_temp3, ENT_COMPAT, 'UTF-8');
                 switch ($col) {
                     case 0:
-                        $gc_data[$row_count]['course_code'] = $cell_text;
+                        $grades_data[$row_count]['course_code'] = $cell_text;
                         $col++;
                         break;
                     case 1:
-                        $gc_data[$row_count]['name'] = $cell_text;
+                        $grades_data[$row_count]['name'] = $cell_text;
                         $col++;
                         break;
                     case 2:
                         $total_credits = $total_credits + $cell_text;
-                        $gc_data[$row_count]['credits'] = $cell_text;
+                        $grades_data[$row_count]['credits'] = $cell_text;
                         $col++;
                         break;
                     case 3:
-                        $gc_data[$row_count]['grade'] = $cell_text;
+                        $grades_data[$row_count]['grade'] = $cell_text;
                         $col++;
                         break;
                     case 4:
-                        $gc_data[$row_count]['session'] = $cell_text;
+                        $grades_data[$row_count]['session'] = $cell_text;
                         $col++;
                         break;
                 }
@@ -279,14 +279,14 @@ function get_gc_data($html) {
         }
     }
     //array_splice($a_data, 0, 1);
-    $gc_data["total_credits"] = $total_credits;
+    $grades_data["total_credits"] = $total_credits;
     return $gc_data;
 }
 
-function get_gp_data($html, $requested_sem, $latest_sem) {
+function get_cg_data($html) {
     $sem = $latest_sem;
     $c = 1;
-    foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
+    foreach($html->find('table.result-footer') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('td') as $cell) {
                 $cell_text_temp = $cell->plaintext;
@@ -294,15 +294,21 @@ function get_gp_data($html, $requested_sem, $latest_sem) {
                 $cell_text_temp3 = str_replace('&nbsp;', ' ', $cell_text_temp2);
                 $cell_text = html_entity_decode($cell_text_temp3, ENT_COMPAT, 'UTF-8');
                 if($c%2 == 0) {
-                    $cgpas[$sem] = $cell_text;
-                    $sem = $sem - 1;
+                    switch($c) {
+                        case 2: $cg_data["session"] = $cell_text;
+                                break;
+                        case 4: $cg_data["credits"] = $cell_text;
+                                break;
+                        case 6: $cg_data["gpa"] = $cell_text;
+                                break;
+                    }
                 }
                 $c = $c + 1;
             }
         }
     }
 
-    return $cgpas[$requested_sem];
+    return $cg_data;
 }
 
 ?>

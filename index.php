@@ -154,14 +154,15 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                     $data_page = grab_page($request_link);
                     $data_html = str_get_html($data_page);
 
-                    $gr_data = get_gc_data($data_html);
-                    $cr_data = $gr_data["total_credits"];
+                    $gr_data = get_grades_data($data_html);
+                    $tot_cr_data = $gr_data["total_credits"];
                     unset($gr_data["total_credits"]);
-                    $gp_data = get_gp_data($data_html, $requested_sem, $latest_sem);
+                    $cg_data = get_cg_data($data_html);
 
                     $data["grades"] = $gr_data;
-                    $data["total_credits"] = $cr_data;
-                    $data["gpa_acquired"] = $gp_data;
+                    $data["total_credits"] = $tot_cr_data;
+                    $data["credits_acquired"] = $cg_data["credits"];
+                    $data["gpa_acquired"] = $cg_data["gpa"];
 
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "gcg");
