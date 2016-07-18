@@ -279,7 +279,7 @@ function get_grades_data($html) {
         }
     }
     //array_splice($a_data, 0, 1);
-    $grades_data["total_credits"] = $total_credits;
+    $grades_data["total_credits"] = (string)$total_credits;
     return $grades_data;
 }
 
