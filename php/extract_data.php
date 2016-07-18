@@ -269,10 +269,6 @@ function get_gc_data($html) {
                         $col++;
                         break;
                     case 4:
-                        $gc_data[$row_count]['absent'] = $cell_text;
-                        $col++;
-                        break;
-                    case 5:
                         $gc_data[$row_count]['session'] = $cell_text;
                         $col++;
                         break;
