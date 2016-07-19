@@ -7,7 +7,7 @@ A PHP and cURL based data extraction module for our online SIS portal @ MIT.
 - [x] Course Details
 - [x] Attendance
 - [x] Internal Assessments (1, 2 & 3)
-- [x] GCG
+- [x] GCG (Grades Credits GPA)
   - [x] Grades
   - [x] Total Credits per Sem
   - [x] Credits Acquired per Sem
