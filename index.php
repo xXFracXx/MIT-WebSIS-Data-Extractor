@@ -167,7 +167,7 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "gcg");
                 }
-            } else if($routes[1] == "genNoticeLinks") { {
+            } else if($routes[1] == "genNoticeLinks") { 
                 $data = get_notice_links($data_html);
                 //dispData($data);
             }
