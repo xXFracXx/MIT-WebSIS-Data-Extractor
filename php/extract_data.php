@@ -314,7 +314,7 @@ function get_cg_data($html) {
 function get_notice_links($html) {
     foreach($html->find('div[id=microcart]') as $div) {
         foreach($div->find('a') as $cell) {
-            $link = str_replace("&amp;", "&", $cell->href);
+            $link = str_replace("&amp;", "&", $cell);
             //$link = html_entity_decode($cell->href);
             echo $link; echo nl2br("\n\n\n");
         }
