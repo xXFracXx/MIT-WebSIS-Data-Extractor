@@ -52,16 +52,16 @@ if($test_code == "testAfterLogin") {
     exit();
 }
 
-$student_yr = substr($student_id, 0, 2);
+if($routes[1] == "semester") {
+    $student_yr = substr($student_id, 0, 2);
 
-$latest_sem = findCurrentSem($student_yr, $current_date);
-if($routes[2] == "latest")
-    $requested_sem = $latest_sem;
-else
-    $requested_sem = $routes[2];
+    $latest_sem = findCurrentSem($student_yr, $current_date);
+    if($routes[2] == "latest")
+        $requested_sem = $latest_sem;
+    else
+        $requested_sem = $routes[2];
 
-if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
-    if($routes[1] == "semester") {
+    if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
         if($routes[3] == "attendance") {
             $all_data = (array)downloadFromDB($student_id, "attendance");
             $db_sem = "Semester ".$requested_sem;
@@ -107,24 +107,22 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                 header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
             dispData($data);
         }
-    }
-} else {
-    if(checkLogin($data_html) == FALSE) {
-        echo "Invalid Credentials";
-        echo $student_id." ".$student_dob;
     } else {
-        $is_new_user = addStudentInfoToDB($student_id,$student_dob);
-
-        if($requested_sem > $latest_sem || $requested_sem < 0) {
-            echo "Invalid semester request!";
+        if(checkLogin($data_html) == FALSE) {
+            echo "Invalid Credentials";
+            echo $student_id." ".$student_dob;
         } else {
-            $Semlinks = genSemLinks($student_yr, $latest_sem);
+            $is_new_user = addStudentInfoToDB($student_id,$student_dob);
 
-            $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
-            $data_page = grab_page($request_link);
-            $data_html = str_get_html($data_page);
+            if($requested_sem > $latest_sem || $requested_sem < 0) {
+                echo "Invalid semester request!";
+            } else {
+                $Semlinks = genSemLinks($student_yr, $latest_sem);
 
-            if($routes[1] == "semester") {
+                $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
+                $data_page = grab_page($request_link);
+                $data_html = str_get_html($data_page);
+
                 if($routes[3] == "attendance") {
                     $data = get_attendance_data($data_html);
                     dispData($data);
@@ -167,19 +165,19 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "gcg");
                 }
-            } else if($routes[1] == "genNoticeLinks") { 
-                $data = get_notice_links($data_html);
-                //dispData($data);
             }
+
+            if($is_new_user == TRUE){
+
+            }
+
+            //Removes the page & html data variables, MUST ALWAYS BE AT THE END ...
+            unset($data_page, $data_html);
         }
-
-        if($is_new_user == TRUE){
-
-        }
-
-        //Removes the page & html data variables, MUST ALWAYS BE AT THE END ...
-        unset($data_page, $data_html);
     }
+} else if($routes[1] == "genNoticeLinks") {
+    $data = get_notice_links($data_html);
+    //dispData($data);
 }
 
 
