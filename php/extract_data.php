@@ -319,7 +319,7 @@ function get_notice_links($html) {
             echo $link; echo nl2br("\n\n\n");
         }
     }
-    //return $links;
+    return $links;
 }
 
 ?>
