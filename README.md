@@ -17,10 +17,12 @@ A PHP and cURL based data extraction module for our online SIS portal @ MIT.
 Documentation
 ------
 
-####Valid Links (http://websis.herokuapp.com/ ... ):
-- semester/\<requested\_sem\>/\<requested\_data\>
+####Valid Links (http://websis.herokuapp.com ... ):
+- /semester/\<requested\_sem\>/\<requested\_data\>
   - \<requested\_sem\> → ( 1 to 8 ) | 'latest' 
   - \<requested\_data\> → 'attendace' | 'course' | 'marks/IA1' | 'marks/IA2' | 'marks/IA3' | gcg
+- /genNoticeLinks
+  - Returns a jSON containing all the links from the "Notice" board. 
 
 ####Valid HTTP Headers:
 - username* → Student ID [ XXXXXXXXX ]
@@ -77,3 +79,4 @@ varchar(9) | varchar(10) | jSON | jSON | jSON | jSON | jSON | jSON
 ####Timing(s) Observed:
 - Normal Response: 11000ms to 17000ms
 - Data Base Response (w/ shouldupdate = NO): 2000ms to 4000ms
+- genNoticeLinks Response: 3000ms
