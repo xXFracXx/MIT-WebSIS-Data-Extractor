@@ -10,6 +10,7 @@ A PHP and cURL based data extraction module for our online SIS portal @ MIT.
 - [x] GCG
   - [x] Grades
   - [x] Total Credits per Sem
+  - [x] Credits Acquired per Sem
   - [x] GPA Acquired per Sem
 - [ ] Do something useful with jSON responses 
 
