@@ -174,7 +174,7 @@ if($routes[1] == "semester") {
     }
 } else if($routes[1] == "genNoticeLinks") {
     $data = get_notice_links($data_html);
-    //dispData($data);
+    dispData($data);
 }
 
 //Removes the page & html data variables, MUST ALWAYS BE AT THE END (before varDump if clause)...
