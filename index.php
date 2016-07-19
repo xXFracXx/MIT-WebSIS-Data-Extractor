@@ -170,9 +170,6 @@ if($routes[1] == "semester") {
             if($is_new_user == TRUE){
 
             }
-
-            //Removes the page & html data variables, MUST ALWAYS BE AT THE END ...
-            unset($data_page, $data_html);
         }
     }
 } else if($routes[1] == "genNoticeLinks") {
@@ -180,6 +177,8 @@ if($routes[1] == "semester") {
     //dispData($data);
 }
 
+//Removes the page & html data variables, MUST ALWAYS BE AT THE END (before varDump if clause)...
+unset($data_page, $data_html);
 
 if($test_code == "varDump") {
     echo nl2br("\n\n");
