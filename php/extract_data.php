@@ -316,8 +316,13 @@ function get_notice_links($html) {
     foreach($html->find('div[id=microcart]') as $div) {
         foreach($div->find('a') as $a) {
             $links[$row_count]['id'] = $row_count;
-            $links[$row_count]['name'] = $a->plaintext;
-            $links[$row_count]['link'] = $a->href;
+            $a_name_temp = $a->plaintext;
+            $a_name_temp2 = trim($a_name_temp);
+            $a_name_temp3 = str_replace('&nbsp;', ' ', $a_name_temp2);
+            $a_name = html_entity_decode($a_name_temp3, ENT_COMPAT, 'UTF-8');
+            $links[$row_count]['name'] = $a_name;
+            $a_href = "http://websismit.manipal.edu".$a->href;
+            $links[$row_count]['link'] = $a_href;
             $row_count++;
         }
     }
