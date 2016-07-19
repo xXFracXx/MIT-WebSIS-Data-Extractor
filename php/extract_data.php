@@ -313,7 +313,7 @@ function get_cg_data($html) {
 
 function get_notice_links($html) {
     foreach($html->find('table[id=microcart]') as $table) {
-        foreach($row->find('a') as $cell) {
+        foreach($table->find('a') as $cell) {
             $link = str_replace("&amp;", "&", $cell->href);
             //$link = html_entity_decode($cell->href);
             echo $link; echo nl2br("\n\n\n");
