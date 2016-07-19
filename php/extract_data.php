@@ -303,7 +303,7 @@ function get_cg_data($html) {
                                 break;
                     }
                 }
-                $c = $c + 1;
+                $c++;
             }
         }
     }
@@ -312,11 +312,13 @@ function get_cg_data($html) {
 }
 
 function get_notice_links($html) {
+    $row_count = 0;
     foreach($html->find('div[id=microcart]') as $div) {
-        foreach($div->find('a') as $cell) {
-            $link = str_replace("&amp;", "&", $cell);
-            //$link = html_entity_decode($cell->href);
-            echo $link; echo nl2br("\n\n\n");
+        foreach($div->find('a') as $a) {
+            $links[$row_count]['id'] = $row_count;
+            $links[$row_count]['name'] = $a->plaintext;
+            $links[$row_count]['link'] = $a->href;
+            $row_count++;
         }
     }
     return $links;
