@@ -48,7 +48,7 @@ $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
 if($test_code == "testAfterLogin") {
-    //test stuff
+    $latest_sem = findCurrentSem($data_html);
     exit();
 }
 
