@@ -48,15 +48,14 @@ $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
 if($test_code == "testAfterLogin") {
-    findCurrentSem($data_html);
+    //test stuff
     exit();
 }
 
 if($routes[1] == "semester") {
     $student_yr = substr($student_id, 0, 2);
 
-    $latest_sem = findCurrentSem_old($student_yr, $current_date);
-    $latest_sem = findCurrentSem($data_html);
+    $latest_sem = findCurrentSem($student_yr, $current_date);
     if($routes[2] == "latest")
         $requested_sem = $latest_sem;
     else
