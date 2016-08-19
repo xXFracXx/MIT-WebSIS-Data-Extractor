@@ -62,7 +62,7 @@ function dispData($data) {
     printf('%s', $json);
 }
 
-function findCurrentSem($student_yr, $current_date) {
+function findCurrentSem_old($student_yr, $current_date) {
     $temp = (int)substr($current_date[1], 2, 2);
     $x = $temp - $student_yr;
     if($current_date[2] > 7 && $current_date[3] > 3) {
@@ -93,6 +93,18 @@ function findCurrentSem($student_yr, $current_date) {
         default: echo "Error @ findCurrentSem()";
                  exit();
     }
+}
+
+function findCurrentSem($data) {
+    $count = 0;
+    foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
+        foreach($table->find('tr') as $row) {
+            foreach($row->find('a') as $cell) {
+                $count++;
+            }
+        }
+    }
+    return $count;
 }
 
 function genSemLinks($student_yr, $latest_sem) {
