@@ -66,8 +66,8 @@ function findCurrentSem($html) {
     $count = 0;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
-            foreach($row->find('span') as $cell->plaintext) {
-                echo $cell;
+            foreach($row->find('span') as $cell) {
+                echo $cell->innertext;
             }
         }
     }
