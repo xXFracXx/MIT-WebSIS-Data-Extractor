@@ -63,15 +63,15 @@ function dispData($data) {
 }
 
 function findCurrentSem($html) {
-    $count = 0;
     foreach($html->find('table[id=ProgramAdmissionItemSummary_table]') as $table) {
         foreach($table->find('tr') as $row) {
             foreach($row->find('span') as $cell) {
-                echo $cell->innertext;
+                $sem_text = $cell->innertext;
+                $sem = filter_var($sem_text, FILTER_SANITIZE_NUMBER_INT);
             }
         }
     }
-    return $count;
+    return $sem;
 }
 
 function findCurrentSem_old($student_yr, $current_date) {
