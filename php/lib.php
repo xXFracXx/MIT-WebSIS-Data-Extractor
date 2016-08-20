@@ -68,10 +68,10 @@ function findCurrentSem($html) {
             foreach($row->find('span') as $cell) {
                 $sem_text = $cell->innertext;
                 $sem = filter_var($sem_text, FILTER_SANITIZE_NUMBER_INT);
+                return $sem;
             }
         }
     }
-    return $sem;
 }
 
 function findCurrentSem_old($student_yr, $current_date) {
