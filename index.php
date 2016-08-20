@@ -56,68 +56,70 @@ if($test_code == "testAfterLogin") {
 if($routes[1] == "semester") {
     $student_yr = substr($student_id, 0, 2);
 
-    $latest_sem = findCurrentSem($student_yr, $current_date);
-    if($routes[2] == "latest")
-        $requested_sem = $latest_sem;
-    else
-        $requested_sem = $routes[2];
+    $latest_sem = findCurrentSem($data_html);
 
-    if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
-        if($routes[3] == "attendance") {
-            $all_data = (array)downloadFromDB($student_id, "attendance");
-            $db_sem = "Semester ".$requested_sem;
-            $data = $all_data[$db_sem]["attendance"];
-            if($data == NULL)
-                header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
-            dispData($data);
-        } else if($routes[3] == "course") {
-            $all_data = (array)downloadFromDB($student_id, "course");
-            $db_sem = "Semester ".$requested_sem;
-            $data = $all_data[$db_sem]["course"];
-            if($data == NULL)
-                header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
-            dispData($data);
-        } else if($routes[3] == "marks") {
-            if($routes[4] == "IA1") {
-                $all_data = (array)downloadFromDB($student_id, "marks_ia1");
+    if($requested_sem > $latest_sem || $requested_sem < 0) {
+        echo "Invalid semester request!";
+    } else {
+
+        if($routes[2] == "latest")
+            $requested_sem = $latest_sem;
+        else
+            $requested_sem = $routes[2];
+
+        if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
+            if($routes[3] == "attendance") {
+                $all_data = (array)downloadFromDB($student_id, "attendance");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem]["marks_ia1"];
+                $data = $all_data[$db_sem]["attendance"];
                 if($data == NULL)
                     header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
                 dispData($data);
-            } else if($routes[4] == "IA2") {
-                $all_data = (array)downloadFromDB($student_id, "marks_ia2");
+            } else if($routes[3] == "course") {
+                $all_data = (array)downloadFromDB($student_id, "course");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem]["marks_ia2"];
+                $data = $all_data[$db_sem]["course"];
                 if($data == NULL)
                     header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
                 dispData($data);
-            } else if($routes[4] == "IA3") {
-                $all_data = (array)downloadFromDB($student_id, "marks_ia3");
+            } else if($routes[3] == "marks") {
+                if($routes[4] == "IA1") {
+                    $all_data = (array)downloadFromDB($student_id, "marks_ia1");
+                    $db_sem = "Semester ".$requested_sem;
+                    $data = $all_data[$db_sem]["marks_ia1"];
+                    if($data == NULL)
+                        header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+                    dispData($data);
+                } else if($routes[4] == "IA2") {
+                    $all_data = (array)downloadFromDB($student_id, "marks_ia2");
+                    $db_sem = "Semester ".$requested_sem;
+                    $data = $all_data[$db_sem]["marks_ia2"];
+                    if($data == NULL)
+                        header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+                    dispData($data);
+                } else if($routes[4] == "IA3") {
+                    $all_data = (array)downloadFromDB($student_id, "marks_ia3");
+                    $db_sem = "Semester ".$requested_sem;
+                    $data = $all_data[$db_sem]["marks_ia3"];
+                    if($data == NULL)
+                        header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+                    dispData($data);
+                }
+            } else if($routes[3] == "gcg") {
+                $all_data = (array)downloadFromDB($student_id, "gcg");
                 $db_sem = "Semester ".$requested_sem;
-                $data = $all_data[$db_sem]["marks_ia3"];
+                $data = $all_data[$db_sem]["gcg"];
                 if($data == NULL)
                     header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
                 dispData($data);
             }
-        } else if($routes[3] == "gcg") {
-            $all_data = (array)downloadFromDB($student_id, "gcg");
-            $db_sem = "Semester ".$requested_sem;
-            $data = $all_data[$db_sem]["gcg"];
-            if($data == NULL)
-                header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
-            dispData($data);
-        }
-    } else {
-        if(checkLogin($data_html) == FALSE) {
-            echo "Invalid Credentials";
-            echo $student_id." ".$student_dob;
         } else {
-            $is_new_user = addStudentInfoToDB($student_id,$student_dob);
-
-            if($requested_sem > $latest_sem || $requested_sem < 0) {
-                echo "Invalid semester request!";
+            if(checkLogin($data_html) == FALSE) {
+                echo "Invalid Credentials";
+                echo $student_id." ".$student_dob;
             } else {
+                $is_new_user = addStudentInfoToDB($student_id,$student_dob);
+
                 $Semlinks = genSemLinks($student_yr, $latest_sem);
 
                 $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
@@ -166,10 +168,10 @@ if($routes[1] == "semester") {
                     dispData($data);
                     uploadToDB($data, $student_id, $requested_sem, "gcg");
                 }
-            }
 
-            if($is_new_user == TRUE){
+                if($is_new_user == TRUE){
 
+                }
             }
         }
     }
