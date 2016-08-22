@@ -62,10 +62,10 @@ function uploadToDB($data, $id, $requested_sem, $col) {
 function downloadFromDB($id, $col) {
     $conn = pg_connection_string_from_database_url();
     $pg_conn = pg_connect($conn);
-    $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
-    if(pg_num_rows($result)) {
+    // $result = pg_query($pg_conn, "SELECT roll_no FROM student_info WHERE roll_no ='$id'");
+    // if(pg_num_rows($result)) {
         $result2 = pg_query($pg_conn, "SELECT $col FROM student_info WHERE roll_no ='$id'");
-    }
+    //}
     $data_temp = pg_fetch_row($result2);
     var_dump($data_temp);
     $data = json_decode($data_temp[0], True);
