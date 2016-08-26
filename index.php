@@ -3,8 +3,6 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
-echo "time1".microtime(true);
-
 $date = date('Y/m/d');
 $current_date = array();
 $current_date[1] = substr($date, 0, 4);
@@ -48,8 +46,6 @@ if($test_code == "postgresTest") {
     exit();
 }
 
-echo "time2".microtime(true);
-
 //$student_id = $routes[1];
 //$student_dob = $routes[2];
 $student_id = $_SERVER['HTTP_USERNAME'];
@@ -67,10 +63,9 @@ $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicP
 $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
-echo "time3".microtime(true);
-
 if($test_code == "testAfterLogin") {
-    //testcode
+    $latest_sem = findCurrentSem($data_html);
+    echo $latest_sem;
     exit();
 }
 
@@ -79,16 +74,15 @@ if($routes[1] == "semester") {
 
     $latest_sem = findCurrentSem($data_html);
 
-    if($routes[2] == "latest")
-        $requested_sem = $latest_sem;
-    else
-        $requested_sem = $routes[2];
-
-    echo "time4".microtime(true);
-
     if($requested_sem > $latest_sem || $requested_sem < 0) {
         echo "Invalid semester request!";
     } else {
+
+        if($routes[2] == "latest")
+            $requested_sem = $latest_sem;
+        else
+            $requested_sem = $routes[2];
+
         if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
             $all_data = (array)downloadFromDB($student_id, $requested_data);
             $db_sem = "Semester ".$requested_sem;
@@ -108,8 +102,6 @@ if($routes[1] == "semester") {
                 $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
-
-                echo "time5".microtime(true);
 
                 switch($requested_data) {
                     case "attendance": $data = get_attendance_data($data_html);
@@ -138,12 +130,8 @@ if($routes[1] == "semester") {
                         $data["gpa_acquired"] = $cg_data["gpa"];
                 }
 
-                echo "time6".microtime(true);
-
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, $requested_data);
-
-                echo "time7".microtime(true);
 
                 if($is_new_user == TRUE){
 
