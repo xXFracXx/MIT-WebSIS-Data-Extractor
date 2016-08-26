@@ -12,10 +12,26 @@ $current_date[3] = substr($date, 8, 2);
 $base_url = $_SERVER['REQUEST_URI'];
 $routes = array();
 $routes = explode('/', $base_url);
-// foreach($routes as $route) {
-//     if(trim($route) != '')
-//         array_push($routes, $route);
-// }
+
+switch($routes[3]) {
+    case "attendance": $requested_data = "attendance";
+        break;
+    case "course": $requested_data = "course";
+        break;
+    case "gcg": $requested_data = "gcg";
+        break;
+    case "marks": switch($routes[4]) {
+            case "IA1": $requested_data = "marks_ia1";
+                break;
+            case "IA2": $requested_data = "marks_ia2";
+                break;
+            case "IA3": $requested_data = "marks_ia3";
+                break;
+        }
+        break;
+    case default: echo "invalid data request";
+        exit();
+}
 
 $test_code = $_SERVER['HTTP_TESTCODE'];
 $should_update = $_SERVER['HTTP_SHOULDUPDATE'];
