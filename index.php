@@ -23,24 +23,20 @@ $routes = explode('/', $base_url);
 $test_code = $_SERVER['HTTP_TESTCODE'];
 $should_update = $_SERVER['HTTP_SHOULDUPDATE'];
 
-switch($routes[3]) {
-    case "attendance": $requested_data = "attendance";
-        break;
-    case "course": $requested_data = "course";
-        break;
-    case "gcg": $requested_data = "gcg";
-        break;
-    case "marks": switch($routes[4]) {
-            case "IA1": $requested_data = "marks_ia1";
-                break;
-            case "IA2": $requested_data = "marks_ia2";
-                break;
-            case "IA3": $requested_data = "marks_ia3";
-                break;
-        }
-        break;
-    case default: echo "invalid data request";
-        exit();
+if($routes[3] == "attendance") {
+    $requested_data = "attendance";
+} else if($routes[3] == "course") {
+    $requested_data = "course";
+} else if($routes[3] == "gcg") {
+    $requested_data = "gcg";
+} else if($routes[3] == "marks") {
+    if($routes[4] == "IA1") {
+        $requested_data = "marks_ia1";
+    } else if($routes[4] == "IA2") {
+        $requested_data = "marks_ia2";
+    } else if($routes[4] == "IA3") {
+        $requested_data = "marks_ia3";
+    }
 }
 
 if($test_code == "test") {
@@ -53,48 +49,60 @@ if($test_code == "postgresTest") {
     exit();
 }
 
-if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
-    $all_data = (array)downloadFromDB($student_id, $requested_data);
-    $db_sem = "Semester ".$requested_sem;
-    $data = $all_data[$db_sem][$requested_data];
-    if($data == NULL)
-        header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
-    dispData($data);
-} else {
-    //$student_id = $routes[1];
-    //$student_dob = $routes[2];
-    $student_id = $_SERVER['HTTP_USERNAME'];
-    $student_dob = $_SERVER['HTTP_PASSWORD'];
+$time2 = microtime(true);
+$time = $time2 - $time;
+echo "time2: ".$time;
 
-    $post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
+//$student_id = $routes[1];
+//$student_dob = $routes[2];
+$student_id = $_SERVER['HTTP_USERNAME'];
+$student_dob = $_SERVER['HTTP_PASSWORD'];
 
-    $login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
+$post_cred = "idValue=".$student_id."&birthDate_i18n=".$student_dob."&birthDate=".$student_dob;
 
-    login($login_url, $post_cred);
+$login_url = "http://websismit.manipal.edu/websis/control/createAnonSession";
 
-    $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
-    //$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
+login($login_url, $post_cred);
 
-    $data_page = grab_page($student_summary); //echo $page;
-    $data_html = str_get_html($data_page);
+$student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicProfile";
+//$student_latest_enrollment = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment";
 
-    if($test_code == "testAfterLogin") {
-        //testcode
-        exit();
-    }
+$data_page = grab_page($student_summary); //echo $page;
+$data_html = str_get_html($data_page);
 
-    if($routes[1] == "semester") {
-        $student_yr = substr($student_id, 0, 2);
+$time3 = microtime(true);
+$time2 = $time3 - $time2;
+echo "time3: ".$time2;
 
-        $latest_sem = findCurrentSem($data_html);
+if($test_code == "testAfterLogin") {
+    //testcode
+    exit();
+}
 
-        if($routes[2] == "latest")
-            $requested_sem = $latest_sem;
-        else
-            $requested_sem = $routes[2];
+if($routes[1] == "semester") {
+    $student_yr = substr($student_id, 0, 2);
 
-        if($requested_sem > $latest_sem || $requested_sem < 0) {
-            echo "Invalid semester request!";
+    $latest_sem = findCurrentSem($data_html);
+
+    if($routes[2] == "latest")
+        $requested_sem = $latest_sem;
+    else
+        $requested_sem = $routes[2];
+
+        $time4 = microtime(true);
+        $time3 = $time4 - $time3;
+        echo "time4: ".$time3;
+
+    if($requested_sem > $latest_sem || $requested_sem < 0) {
+        echo "Invalid semester request!";
+    } else {
+        if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
+            $all_data = (array)downloadFromDB($student_id, $requested_data);
+            $db_sem = "Semester ".$requested_sem;
+            $data = $all_data[$db_sem][$requested_data];
+            if($data == NULL)
+                header($_SERVER["SERVER_PROTOCOL"]." 204 No Content");
+            dispData($data);
         } else {
             if(checkLogin($data_html) == FALSE) {
                 echo "Invalid Credentials";
@@ -107,6 +115,10 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                 $request_link = "http://websismit.manipal.edu/websis/control/ListCTPEnrollment?customTimePeriodId=".$Semlinks[$requested_sem];
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
+
+                $time5 = microtime(true);
+                $time4 = $time5 - $time4;
+                echo "time5: ".$time4;
 
                 switch($requested_data) {
                     case "attendance": $data = get_attendance_data($data_html);
@@ -135,19 +147,26 @@ if(($should_update == "no" || $should_update == "NO" || $should_update == "No") 
                         $data["gpa_acquired"] = $cg_data["gpa"];
                 }
 
+                $time6 = microtime(true);
+                $time5 = $time6 - $time5;
+                echo "time6: ".$time5;
+
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, $requested_data);
+
+                $time7 = microtime(true);
+                $time6 = $time7 - $time6;
+                echo "time7: ".$time5;
 
                 if($is_new_user == TRUE){
 
                 }
             }
         }
-    } else if($routes[1] == "genNoticeLinks") {
-        $data = get_notice_links($data_html);
-        dispData($data);
     }
-
+} else if($routes[1] == "genNoticeLinks") {
+    $data = get_notice_links($data_html);
+    dispData($data);
 }
 
 //Removes the page & html data variables, MUST ALWAYS BE AT THE END (before varDump if clause)...
