@@ -39,7 +39,7 @@ switch($routes[3]) {
                 break;
         }
         break;
-    default: echo "invalid data request";
+    case default: echo "invalid data request";
         exit();
 }
 
