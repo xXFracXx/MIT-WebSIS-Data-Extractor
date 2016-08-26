@@ -3,8 +3,7 @@ require('php/lib.php');
 require('php/extract_data.php');
 require('php/postgres_conn.php');
 
-$time = microtime(true);
-echo "time1: ".$time." ";
+echo "time1".microtime(true);
 
 $date = date('Y/m/d');
 $current_date = array();
@@ -49,9 +48,7 @@ if($test_code == "postgresTest") {
     exit();
 }
 
-$time2 = microtime(true);
-$time = $time2 - $time;
-echo "time2: ".$time;
+echo "time2".microtime(true);
 
 //$student_id = $routes[1];
 //$student_dob = $routes[2];
@@ -70,9 +67,7 @@ $student_summary = "http://websismit.manipal.edu/websis/control/StudentAcademicP
 $data_page = grab_page($student_summary); //echo $page;
 $data_html = str_get_html($data_page);
 
-$time3 = microtime(true);
-$time2 = $time3 - $time2;
-echo "time3: ".$time2;
+echo "time3".microtime(true);
 
 if($test_code == "testAfterLogin") {
     //testcode
@@ -89,9 +84,7 @@ if($routes[1] == "semester") {
     else
         $requested_sem = $routes[2];
 
-        $time4 = microtime(true);
-        $time3 = $time4 - $time3;
-        echo "time4: ".$time3;
+    echo "time4".microtime(true);
 
     if($requested_sem > $latest_sem || $requested_sem < 0) {
         echo "Invalid semester request!";
@@ -116,9 +109,7 @@ if($routes[1] == "semester") {
                 $data_page = grab_page($request_link);
                 $data_html = str_get_html($data_page);
 
-                $time5 = microtime(true);
-                $time4 = $time5 - $time4;
-                echo "time5: ".$time4;
+                echo "time5".microtime(true);
 
                 switch($requested_data) {
                     case "attendance": $data = get_attendance_data($data_html);
@@ -147,16 +138,12 @@ if($routes[1] == "semester") {
                         $data["gpa_acquired"] = $cg_data["gpa"];
                 }
 
-                $time6 = microtime(true);
-                $time5 = $time6 - $time5;
-                echo "time6: ".$time5;
+                echo "time6".microtime(true);
 
                 dispData($data);
                 uploadToDB($data, $student_id, $requested_sem, $requested_data);
 
-                $time7 = microtime(true);
-                $time6 = $time7 - $time6;
-                echo "time7: ".$time5;
+                echo "time7".microtime(true);
 
                 if($is_new_user == TRUE){
 
