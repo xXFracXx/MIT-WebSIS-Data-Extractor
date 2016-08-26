@@ -41,7 +41,7 @@ switch($routes[3]) {
 }
 
 if($test_code == "test") {
-    //test stuff
+    $temp = downloadFromDB($id, $col);
     exit();
 }
 
@@ -51,7 +51,6 @@ if($test_code == "postgresTest") {
 }
 
 if(($should_update == "no" || $should_update == "NO" || $should_update == "No") || isWebSISDown()) {
-    $requested_sem = $routes[2];
     $all_data = (array)downloadFromDB($student_id, $requested_data);
     echo $all_data;
     $db_sem = "Semester ".$requested_sem;
